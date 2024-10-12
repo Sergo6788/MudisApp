@@ -2,4 +2,7 @@
     <string name="app_name">MudisApp</string>
     <string name="signUpGetYourFood"><![CDATA[Sign up & get your food!]]></string>
     <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="sign_up">Sign up</string>
 </resources>
