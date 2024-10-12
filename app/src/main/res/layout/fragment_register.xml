@@ -1,14 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.RegisterFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ImageView
+        android:id="@+id/picture_logo_reg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/burger_img_svg"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/signInTxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="@string/signUpGetYourFood"
+        android:layout_marginHorizontal="24dp"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/picture_logo_reg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+
+
+    <EditText
+        android:id="@+id/emailEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/EditTextStyle"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signInTxt"
+        android:layout_marginHorizontal="24dp"/>
+
+    
+
+
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/btSignUp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:layout_marginTop="770dp"-->
+<!--        android:layout_marginRight="20dp"-->
+<!--        android:background="@color/main_color"-->
+<!--        android:text="@string/sign_up"-->
+<!--        android:textSize="24sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:cornerRadius="200dp" />-->
+
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center_horizontal"-->
+<!--        android:layout_marginStart="5dp"-->
+<!--        android:layout_marginTop="850dp"-->
+<!--        android:layout_marginEnd="37dp"-->
+<!--        android:text="@string/have_account"-->
+<!--        android:textSize="16sp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tvButtonSignIn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="230dp"-->
+<!--        android:layout_marginTop="850dp"-->
+<!--        android:layout_marginEnd="10dp"-->
+<!--        android:text="@string/sign_in_reg"-->
+<!--        android:textColor="@color/main_color"-->
+<!--        android:textSize="16sp"-->
+<!--        android:textStyle="bold" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
