@@ -50,16 +50,16 @@ public class LoginFragment extends Fragment {
         binding.tvButtonForgot.setOnClickListener(v -> {
 
         });
-        binding.pictureLogo.setOnClickListener(v -> {
+        binding.eyePassword.setOnClickListener(v -> {
 
             if (isPasswordVisible) {
-                binding.pictureLogo.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.eye_opened_img_svg));
+                binding.eyePassword.setImageDrawable(requireContext().getDrawable(R.drawable.eye_opened_img_svg));
 
                 binding.etPassword.setTransformationMethod(null);
             }
 
             else {
-                binding.pictureLogo.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.eye_closed_img_svg));
+                binding.eyePassword.setImageDrawable(requireContext().getDrawable(R.drawable.eye_closed_img_svg));
 
                 binding.etPassword.setTransformationMethod(new PasswordTransformationMethod());
             }
