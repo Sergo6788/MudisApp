@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mudisapp.R;
+import com.example.mudisapp.databinding.FragmentRegisterBinding;
 
 
 public class RegisterFragment extends Fragment {
@@ -34,6 +35,6 @@ public class RegisterFragment extends Fragment {
     private void applyClick(){
         binding.tvSignin.setOnClickListener(v -> {
            Navigation.findNavController(v).navigate(R.id.action_registerFragment_to_loginFragment);
-      })
+      });
    }
 }
