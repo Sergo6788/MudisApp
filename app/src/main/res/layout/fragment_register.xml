@@ -7,6 +7,14 @@
     tools:context=".fragment.RegisterFragment"
     tools:ignore="MissingConstraints">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLine30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.3"/>
+
     <ImageView
         android:id="@+id/picture_logo_reg"
         android:layout_width="0dp"
@@ -70,6 +78,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
