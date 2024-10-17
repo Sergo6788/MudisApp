@@ -5,4 +5,7 @@
     <string name="password">Password</string>
     <string name="repeat_password">Repeat password</string>
     <string name="sign_up">Sign up</string>
+    <string name="sign_up_bt">Sign up</string>
+    <string name="have_account">Have account?</string>
+    <string name="sign_in">Sign in!</string>
 </resources>
