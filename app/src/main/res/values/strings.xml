@@ -9,6 +9,6 @@
     <string name="sign_in">Sign In</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="no_account">No account?</string>
-    <string name="signup">SignUp</string>
+    <string name="signup">Sign Up</string>
 
 </resources>
