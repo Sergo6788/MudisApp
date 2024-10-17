@@ -1,12 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Base.Theme.MudisApp" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.MudisApp" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Theme.MudisApp" parent="Base.Theme.MudisApp" />
-
     <style name="EditTextStyle" parent="Base.Theme.MudisApp">
         <item name="android:lines">1</item>
         <item name="maxLines">1</item>
+        <item name="android:maxLength">24</item
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">22sp</item>
         <item name="android:paddingVertical">16dp</item>
@@ -15,5 +17,4 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:background">@drawable/edit_text_background</item>
     </style>
-
 </resources>
