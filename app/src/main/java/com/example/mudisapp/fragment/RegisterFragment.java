@@ -1,5 +1,7 @@
 package com.example.mudisapp.fragment;
 
+import static androidx.appcompat.content.res.AppCompatResources.getDrawable;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -47,13 +49,16 @@ public class RegisterFragment extends Fragment {
 
         });
         binding.ivEyePassword.setOnClickListener(v -> {
+
             if(isPasswordHidden){
-                binding.ivEyePassword.setImageResource(R.drawable.eye_open_img_svg);
+                binding.ivEyePassword.setImageDrawable(requireContext().getDrawable(R.drawable.eye_opened_img_svg));
+
                 binding.etPassword.setTransformationMethod(null);
 
             }
             else{
-                binding.ivEyePassword.setImageResource(R.drawable.eye_closed_img_svg);
+                binding.ivEyePassword.setImageDrawable(requireContext().getDrawable(R.drawable.eye_closed_img_svg));
+
                 binding.etPassword.setTransformationMethod(new PasswordTransformationMethod());
             }
             isPasswordHidden = !isPasswordHidden;
@@ -61,13 +66,16 @@ public class RegisterFragment extends Fragment {
 
         });
         binding.ivEyeRepeatPassword.setOnClickListener(v -> {
+
             if(isRepeatPasswordHidden){
-                binding.ivEyeRepeatPassword.setImageResource(R.drawable.eye_open_img_svg);
+                binding.ivEyeRepeatPassword.setImageDrawable(requireContext().getDrawable(R.drawable.eye_opened_img_svg));
+
                 binding.etPasswordRepeat.setTransformationMethod(null);
 
             }
             else{
-                binding.ivEyeRepeatPassword.setImageResource(R.drawable.eye_closed_img_svg);
+                binding.ivEyeRepeatPassword.setImageDrawable(requireContext().getDrawable(R.drawable.eye_closed_img_svg));
+
                 binding.etPasswordRepeat.setTransformationMethod(new PasswordTransformationMethod());
             }
             isRepeatPasswordHidden = !isRepeatPasswordHidden;
