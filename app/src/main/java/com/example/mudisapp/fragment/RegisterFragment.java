@@ -22,7 +22,6 @@ import com.google.android.material.textfield.TextInputEditText;
 public class RegisterFragment extends Fragment {
     private FragmentRegisterBinding binding;
     TextInputEditText textInputEditTextEmail, textInputEditTextPassword, textInputEditTextRepeatPassword;
-    String email, password, repeatPassword;
     ImageView eyeClosed, eyeOpened;
 
 
@@ -36,15 +35,16 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
-        textInputEditTextEmail = findViewById(R.id.etEmail);
-        textInputEditTextPassword = findViewById(R.id.etPassword);
-        textInputEditTextRepeatPassword = findViewById(R.id.etPasswordRepeat);
-        eyeClosed = findViewById(R.id.ivEyeClosed);
-        eyeOpened = findViewById(R.id.ivEyeOpened);
+        eyeClosed = eyeClosed.findViewById(R.id.ivEyeClosed);
+        eyeOpened = eyeOpened.findViewById(R.id.ivEyeOpened);
         applyClick();
+        checkEnterData();
+        checkClickEye();
     }
 
     private void applyClick(){
+        eyeOpened.setVisibility(View.GONE);
+        textInputEditTextRepeatPassword.setVisibility(View.INVISIBLE);
         textInputEditTextRepeatPassword.setVisibility(View.INVISIBLE);
 
         binding.tvSignin.setOnClickListener(v -> {
@@ -57,9 +57,16 @@ public class RegisterFragment extends Fragment {
    }
 
    private void checkClickEye(){
-        if(binding.ivEyeClosed.setOnClickListener(v -> {
-
+        binding.ivEyeClosed.setOnClickListener(v -> {
+            eyeClosed.setImageResource(R.drawable.eye_open_img_svg);
+            textInputEditTextPassword.setVisibility(View.VISIBLE);
+            textInputEditTextRepeatPassword.setVisibility(View.VISIBLE);
        });
+        binding.ivEyeOpened.setOnClickListener(v -> {
+            eyeOpened.setImageResource(R.drawable.eye_closed_img_svg);
+            textInputEditTextPassword.setVisibility(View.INVISIBLE);
+            textInputEditTextRepeatPassword.setVisibility(View.INVISIBLE);
+        });
    }
 
    private void checkEnterData(){
