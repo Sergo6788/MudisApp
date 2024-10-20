@@ -38,7 +38,6 @@ public class RegisterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         applyClick();
-        checkEnterData();
     }
 
     private void applyClick(){
@@ -48,6 +47,7 @@ public class RegisterFragment extends Fragment {
         binding.btSignUp.setOnClickListener(v -> {
 
         });
+
         binding.ivEyePassword.setOnClickListener(v -> {
 
             if(isPasswordHidden){
@@ -86,11 +86,22 @@ public class RegisterFragment extends Fragment {
 
 
    private void checkEnterData(){
-        if(!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.getText()).matches()){
-            Toast.makeText(requireContext(), "Email Incorrect", Toast.LENGTH_SHORT).show();
-        } else if (binding.etPassword.getText().toString().length()<6 || !binding.etPassword.getText().toString().contains(" ")) {
 
+        if(!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.getText()).matches())
+        {
+            Toast.makeText(requireContext(), "Email Incorrect", Toast.LENGTH_SHORT).show();
         }
+        else if (binding.etPassword.getText().toString().length()<6 || !binding.etPassword.getText().toString().contains(" "))
+        {
+            Toast.makeText(requireContext(), "Password length must be more than 6 symbols and without spaces", Toast.LENGTH_SHORT).show();
+        }
+        else
+            allCorect();
+    }
+
+
+    private void allCorect(){
+
     }
 
 }

@@ -60,15 +60,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etEmail" />
 
-    <ImageView
-        android:id="@+id/ivEyePassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/eye_closed_img_svg"
-        app:layout_constraintBottom_toBottomOf="@+id/etPassword"
-        app:layout_constraintEnd_toEndOf="@+id/etPassword"
-        app:layout_constraintTop_toTopOf="@+id/etPassword"
-        android:layout_marginEnd="16dp"/>
 
     <EditText
         android:id="@+id/etPasswordRepeat"
@@ -82,16 +73,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPassword" />
-
-    <ImageView
-        android:id="@+id/ivEyeRepeatPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/eye_closed_img_svg"
-        app:layout_constraintBottom_toBottomOf="@+id/etPasswordRepeat"
-        app:layout_constraintEnd_toEndOf="@+id/etPasswordRepeat"
-        app:layout_constraintTop_toTopOf="@+id/etPasswordRepeat"
-        android:layout_marginEnd="16dp"/>
 
 
     <androidx.cardview.widget.CardView
@@ -152,6 +133,26 @@
             app:layout_constraintTop_toBottomOf="@+id/btSignUp" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivEyePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/eye_closed_img_svg"
+        app:layout_constraintBottom_toBottomOf="@+id/etPassword"
+        app:layout_constraintEnd_toEndOf="@+id/etPassword"
+        app:layout_constraintTop_toTopOf="@+id/etPassword"
+        android:layout_marginEnd="16dp"/>
+
+    <ImageView
+        android:id="@+id/ivEyeRepeatPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/eye_closed_img_svg"
+        app:layout_constraintBottom_toBottomOf="@+id/etPasswordRepeat"
+        app:layout_constraintEnd_toEndOf="@+id/etPasswordRepeat"
+        app:layout_constraintTop_toTopOf="@+id/etPasswordRepeat"
+        android:layout_marginEnd="16dp"/>
 
 
     <androidx.constraintlayout.widget.Guideline
