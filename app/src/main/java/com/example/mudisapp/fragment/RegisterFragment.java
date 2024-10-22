@@ -52,10 +52,10 @@ public class RegisterFragment extends Fragment {
 
     private void applyClick() {
         binding.tvSignin.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(R.id.action_registerFragment_to_loginFragment);
+            Navigation.findNavController(v).popBackStack();
         });
         binding.btSignUp.setOnClickListener(v -> {
-            createUser();
+            checkEnterData();
         });
 
         binding.ivEyePassword.setOnClickListener(v -> {
@@ -97,36 +97,30 @@ public class RegisterFragment extends Fragment {
 
         if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.getText()).matches()) {
             Toast.makeText(requireContext(), "Email Incorrect", Toast.LENGTH_SHORT).show();
-        } else if (binding.etPassword.getText().toString().length() < 6 || !binding.etPassword.getText().toString().contains(" ")) {
+        } else if (binding.etPassword.getText().toString().length() < 6 || binding.etPassword.getText().toString().contains(" ")) {
             Toast.makeText(requireContext(), "Password length must be more than 6 symbols and without spaces", Toast.LENGTH_SHORT).show();
-        } else if(binding.etPassword != binding.etPasswordRepeat)
+        } else if (!binding.etPassword.getText().toString().equals(binding.etPasswordRepeat.getText().toString()))
             Toast.makeText(requireContext(), "Password must be the same", Toast.LENGTH_SHORT).show();
         else
-            allCorect();
+            createUser();
     }
 
-    private void allCorect(){
 
-    }
-
-    private void createUser(){
+    private void createUser() {
         String email = binding.etEmail.getText().toString();
         String password = binding.etPassword.getText().toString();
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>(){
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task){
-                if(task.isSuccessful()) {
-                    Toast.makeText(requireContext(), "User registration successfully", Toast.LENGTH_SHORT).show();
-                    FirebaseUser user = mAuth.getCurrentUser();
-                }
-                else {
-                    Toast.makeText(requireContext(), "User registration failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(requireActivity(), task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(requireContext(), "User registration successfully", Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(binding.getRoot()).popBackStack();
+                    } else {
+                        Toast.makeText(requireContext(), "User registration failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                });
     }
-
 
 
 }
