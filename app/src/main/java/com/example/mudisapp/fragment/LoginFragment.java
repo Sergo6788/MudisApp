@@ -22,7 +22,9 @@ import android.widget.Toast;
 import com.example.mudisapp.R;
 import com.example.mudisapp.app.App;
 import com.example.mudisapp.databinding.FragmentLoginBinding;
+import com.example.mudisapp.model.FireStoreUser;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.net.PasswordAuthentication;
 
@@ -31,9 +33,7 @@ public class LoginFragment extends Fragment {
     private FragmentLoginBinding binding;
     private boolean isPasswordVisible = true;
     private FirebaseAuth auth;
-    private EditText etEmail;
-    private EditText etPassword;
-
+    private final FirebaseFirestore dataBase = FirebaseFirestore.getInstance();
 
 
     @Override
@@ -107,13 +107,28 @@ public class LoginFragment extends Fragment {
         auth.signInWithEmailAndPassword(binding.etEmail.getText().toString(), binding.etPassword.getText().toString()).addOnCompleteListener(requireActivity(), task -> {
             binding.btSignIn.setEnabled(false);
             if(task.isSuccessful()) {
-                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_loginFragment_to_mainPageFragment);
-                App.sharedManager.userAuthorize();
+                createUser();
             }
         }).addOnFailureListener(requireActivity(),error->{
             binding.btSignIn.setEnabled(true);
             Toast.makeText(requireContext(), error.getMessage(), Toast.LENGTH_LONG).show();
         });
+
+    }
+
+    private void createUser(){
+        FireStoreUser user = new FireStoreUser(false);
+        dataBase.collection("Users").document(auth.getCurrentUser().getUid()).set(user)
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        Navigation.findNavController(binding.getRoot()).navigate(R.id.action_loginFragment_to_mainPageFragment);
+                        App.sharedManager.userAuthorize();
+                    }
+                    else{
+                        binding.btSignIn.setEnabled(true);
+                        Toast.makeText(requireContext(), "Bad internet connection, please try again later", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
     }
 }

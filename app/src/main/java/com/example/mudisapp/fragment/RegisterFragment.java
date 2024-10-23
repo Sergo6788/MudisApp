@@ -21,19 +21,27 @@ import android.widget.Toast;
 
 import com.example.mudisapp.R;
 import com.example.mudisapp.databinding.FragmentRegisterBinding;
+import com.example.mudisapp.model.FireStoreUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.Map;
 
 
 public class RegisterFragment extends Fragment {
     private FragmentRegisterBinding binding;
     private boolean isPasswordHidden = true;
     private boolean isRepeatPasswordHidden = true;
-    private FirebaseAuth mAuth;
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
 
 
     @Override
@@ -46,7 +54,6 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
         applyClick();
     }
 
@@ -102,13 +109,14 @@ public class RegisterFragment extends Fragment {
         } else if (!binding.etPassword.getText().toString().equals(binding.etPasswordRepeat.getText().toString()))
             Toast.makeText(requireContext(), "Password must be the same", Toast.LENGTH_SHORT).show();
         else
-            createUser();
+            registerUser();
     }
 
 
-    private void createUser() {
+    private void registerUser() {
         String email = binding.etEmail.getText().toString();
         String password = binding.etPassword.getText().toString();
+        binding.btSignUp.setEnabled(false);
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity(), task -> {
@@ -116,13 +124,12 @@ public class RegisterFragment extends Fragment {
                         Toast.makeText(requireContext(), "User registration successfully", Toast.LENGTH_SHORT).show();
                         Navigation.findNavController(binding.getRoot()).popBackStack();
                     } else {
+                        binding.btSignUp.setEnabled(true);
                         Toast.makeText(requireContext(), "User registration failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                 });
     }
-
-
 }
 
 
