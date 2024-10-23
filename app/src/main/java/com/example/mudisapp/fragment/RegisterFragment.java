@@ -42,14 +42,11 @@ public class RegisterFragment extends Fragment {
     private boolean isRepeatPasswordHidden = true;
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentRegisterBinding.inflate(inflater);
         return binding.getRoot();
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -78,9 +75,8 @@ public class RegisterFragment extends Fragment {
                 binding.etPassword.setTransformationMethod(new PasswordTransformationMethod());
             }
             isPasswordHidden = !isPasswordHidden;
-
-
         });
+
         binding.ivEyeRepeatPassword.setOnClickListener(v -> {
 
             if (isRepeatPasswordHidden) {
@@ -94,20 +90,17 @@ public class RegisterFragment extends Fragment {
                 binding.etPasswordRepeat.setTransformationMethod(new PasswordTransformationMethod());
             }
             isRepeatPasswordHidden = !isRepeatPasswordHidden;
-
-
         });
     }
 
 
     private void checkEnterData() {
-
         if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.getText()).matches()) {
-            Toast.makeText(requireContext(), "Email Incorrect", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), requireContext().getResources().getString(R.string.email_incorrect), Toast.LENGTH_SHORT).show();
         } else if (binding.etPassword.getText().toString().length() < 6 || binding.etPassword.getText().toString().contains(" ")) {
-            Toast.makeText(requireContext(), "Password length must be more than 6 symbols and without spaces", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), requireContext().getResources().getString(R.string.password_length_must_be_more_than_6_symbols_and_without_spaces), Toast.LENGTH_SHORT).show();
         } else if (!binding.etPassword.getText().toString().equals(binding.etPasswordRepeat.getText().toString()))
-            Toast.makeText(requireContext(), "Password must be the same", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), requireContext().getResources().getString(R.string.password_must_be_the_same), Toast.LENGTH_SHORT).show();
         else
             registerUser();
     }
@@ -121,11 +114,11 @@ public class RegisterFragment extends Fragment {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity(), task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(requireContext(), "User registration successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), requireContext().getResources().getString(R.string.user_registration_successfully), Toast.LENGTH_SHORT).show();
                         Navigation.findNavController(binding.getRoot()).popBackStack();
                     } else {
                         binding.btSignUp.setEnabled(true);
-                        Toast.makeText(requireContext(), "User registration failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), requireContext().getResources().getString(R.string.user_registration_failed) + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                 });
