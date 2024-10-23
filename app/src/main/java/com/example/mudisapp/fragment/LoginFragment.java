@@ -118,15 +118,18 @@ public class LoginFragment extends Fragment {
 
     private void createUser(){
         FireStoreUser user = new FireStoreUser(false);
-        dataBase.collection("Users").document(auth.getCurrentUser().getUid()).set(user)
+        String uid = auth.getCurrentUser().getUid();
+        dataBase.collection("Users").document(uid).set(user)
                 .addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
                         Navigation.findNavController(binding.getRoot()).navigate(R.id.action_loginFragment_to_mainPageFragment);
                         App.sharedManager.userAuthorize();
+                        App.sharedManager.saveUID(uid);
+
                     }
                     else{
                         binding.btSignIn.setEnabled(true);
-                        Toast.makeText(requireContext(), "Bad internet connection, please try again later", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), requireContext().getResources().getString(R.string.bad_internet_connection_please_try_again_later), Toast.LENGTH_SHORT).show();
                     }
                 });
 

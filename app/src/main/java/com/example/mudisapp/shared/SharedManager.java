@@ -17,4 +17,10 @@ public class SharedManager {
     public void userLogout(){
         sharedPreferences.edit().putBoolean("isUserAuthorized", false).apply();
     }
+    public void saveUID(String uid){
+        sharedPreferences.edit().putString("userUID",uid).apply();
+    }
+    public String getUID(){
+        return sharedPreferences.getString("userUID", "");
+    }
 }
