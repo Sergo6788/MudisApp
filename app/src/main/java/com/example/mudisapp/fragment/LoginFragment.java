@@ -88,12 +88,12 @@ public class LoginFragment extends Fragment {
     private void checkEnterData() {
         if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.getText()).matches())
         {
-            Toast.makeText(requireContext(), "Email Incorrect", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(),requireContext().getResources().getString(R.string.email_incorrect), Toast.LENGTH_SHORT).show();
         }
         else if (binding.etPassword.getText().toString().length() < 6 || binding.etPassword.getText().toString().contains(" "))
         {
 
-            Toast.makeText(requireContext(), "Password length must be more than 6 characters and without space", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), requireContext().getResources().getString(R.string.password_length_must_be_more_than_6_characters_and_without_space), Toast.LENGTH_SHORT).show();
         }
         else
         {
