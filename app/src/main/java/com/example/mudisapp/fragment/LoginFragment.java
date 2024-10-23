@@ -1,5 +1,8 @@
 package com.example.mudisapp.fragment;
 
+import static androidx.navigation.Navigation.findNavController;
+
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,10 +16,12 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mudisapp.R;
 import com.example.mudisapp.databinding.FragmentLoginBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.net.PasswordAuthentication;
 
@@ -24,6 +29,10 @@ import java.net.PasswordAuthentication;
 public class LoginFragment extends Fragment {
     private FragmentLoginBinding binding;
     private boolean isPasswordVisible = true;
+    private FirebaseAuth auth;
+    private EditText etEmail;
+    private EditText etPassword;
+
 
 
     @Override
@@ -40,9 +49,10 @@ public class LoginFragment extends Fragment {
         applyClick();
     }
 
-    private void applyClick() {
+    private void applyClick()
+    {
         binding.tvButtonSignUp.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment);
+            findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment);
         });
         binding.btSignIn.setOnClickListener(v -> {
             checkEnterData();
@@ -70,7 +80,9 @@ public class LoginFragment extends Fragment {
         });
 
 
+
     }
+
 
     private void checkEnterData() {
         if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.getText()).matches())
@@ -88,7 +100,16 @@ public class LoginFragment extends Fragment {
         }
     }
 
-    private void allCorrect() {
+    private void allCorrect()
+    {
+        auth=FirebaseAuth.getInstance();
+        auth.signInWithEmailAndPassword(binding.etEmail.getText().toString(), binding.etPassword.getText().toString()).addOnCompleteListener(requireActivity(), task -> {
+            if(task.isSuccessful()) {
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_loginFragment_to_registerFragment);
+            }
+        }).addOnFailureListener(requireActivity(),error->{
+            Toast.makeText(requireContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+        });
 
     }
 }
