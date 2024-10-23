@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mudisapp.R;
+import com.example.mudisapp.app.App;
 import com.example.mudisapp.databinding.FragmentLoginBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -104,10 +105,13 @@ public class LoginFragment extends Fragment {
     {
         auth=FirebaseAuth.getInstance();
         auth.signInWithEmailAndPassword(binding.etEmail.getText().toString(), binding.etPassword.getText().toString()).addOnCompleteListener(requireActivity(), task -> {
+            binding.btSignIn.setEnabled(false);
             if(task.isSuccessful()) {
-                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_loginFragment_to_registerFragment);
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_loginFragment_to_mainPageFragment);
+                App.sharedManager.userAuthorize();
             }
         }).addOnFailureListener(requireActivity(),error->{
+            binding.btSignIn.setEnabled(true);
             Toast.makeText(requireContext(), error.getMessage(), Toast.LENGTH_LONG).show();
         });
 
