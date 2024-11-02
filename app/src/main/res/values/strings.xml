@@ -14,4 +14,10 @@
     <string name="have_account">Have account?</string>
     <string name="sign_up_order_now"><![CDATA[Sign up & get your food!]]></string>
     <string name="bad_internet_connection_please_try_again_later">Bad internet connection, please try again later</string>
+    <string name="password_length_must_be_more_than_6_characters_and_without_space">Password length must be more than 6 characters and without space</string>
+    <string name="email_incorrect">Email Incorrect</string>
+    <string name="food_menu">Food Menu</string>
+    <string name="profile">Profile</string>
+    <string name="cart">Cart</string>
+    <string name="exit">Exit Account</string>
 </resources>
