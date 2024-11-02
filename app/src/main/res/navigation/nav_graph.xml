@@ -13,11 +13,6 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_mainPageFragment"
-            app:destination="@id/mainPageFragment"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -38,15 +33,5 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true"/>
-        <action
-            android:id="@+id/action_splashFragment_to_mainPageFragment"
-            app:destination="@id/mainPageFragment"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true"/>
     </fragment>
-    <fragment
-        android:id="@+id/mainPageFragment"
-        android:name="com.example.mudisapp.fragment.MainPageFragment"
-        android:label="fragment_main_page"
-        tools:layout="@layout/fragment_main_page" />
 </navigation>

@@ -3,6 +3,7 @@ package com.example.mudisapp.fragment;
 import static androidx.navigation.Navigation.findNavController;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mudisapp.R;
+import com.example.mudisapp.activity.DrawerActivity;
 import com.example.mudisapp.app.App;
 import com.example.mudisapp.databinding.FragmentLoginBinding;
 import com.example.mudisapp.model.FireStoreUser;
@@ -131,7 +133,8 @@ public class LoginFragment extends Fragment {
         dataBase.collection("Users").document(uid).set(user)
                 .addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
-                        Navigation.findNavController(binding.getRoot()).navigate(R.id.action_loginFragment_to_mainPageFragment);
+                        requireContext().startActivity(new Intent(requireActivity(), DrawerActivity.class));
+                        requireActivity().finish();
                         App.sharedManager.userAuthorize();
                         App.sharedManager.saveUID(uid);
 
