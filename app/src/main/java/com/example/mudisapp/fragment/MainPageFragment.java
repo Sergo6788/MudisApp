@@ -9,14 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mudisapp.R;
+import com.example.mudisapp.databinding.FragmentCartBinding;
+import com.example.mudisapp.databinding.FragmentMainPageBinding;
 
 public class MainPageFragment extends Fragment {
+    public FragmentMainPageBinding binding;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main_page, container, false);
+        binding = FragmentMainPageBinding.inflate(inflater);
+        return binding.getRoot();
     }
 }

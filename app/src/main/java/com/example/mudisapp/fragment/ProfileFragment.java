@@ -9,15 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mudisapp.R;
+import com.example.mudisapp.databinding.FragmentCartBinding;
+import com.example.mudisapp.databinding.FragmentProfileBinding;
 
 
 public class ProfileFragment extends Fragment {
+    public FragmentProfileBinding binding;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        binding = FragmentProfileBinding.inflate(inflater);
+        return binding.getRoot();
     }
 }
