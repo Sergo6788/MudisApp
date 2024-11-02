@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.text.method.PasswordTransformationMethod;
@@ -23,6 +24,7 @@ import com.example.mudisapp.R;
 import com.example.mudisapp.app.App;
 import com.example.mudisapp.databinding.FragmentLoginBinding;
 import com.example.mudisapp.model.FireStoreUser;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -36,6 +38,7 @@ public class LoginFragment extends Fragment {
     private final FirebaseFirestore dataBase = FirebaseFirestore.getInstance();
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,7 +50,13 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setObservers();
         applyClick();
+    }
+    private void setObservers()
+    {
+
+
     }
 
     private void applyClick()
@@ -61,21 +70,21 @@ public class LoginFragment extends Fragment {
         binding.tvButtonForgot.setOnClickListener(v -> {
 
         });
-        binding.eyePassword.setOnClickListener(v -> {
+       binding.eyePassword.setOnClickListener(v -> {
 
             if (isPasswordVisible) {
                 binding.eyePassword.setImageDrawable(requireContext().getDrawable(R.drawable.eye_opened_img_svg));
 
                 binding.etPassword.setTransformationMethod(null);
-            }
+           }
 
             else {
-                binding.eyePassword.setImageDrawable(requireContext().getDrawable(R.drawable.eye_closed_img_svg));
+               binding.eyePassword.setImageDrawable(requireContext().getDrawable(R.drawable.eye_closed_img_svg));
 
                 binding.etPassword.setTransformationMethod(new PasswordTransformationMethod());
-            }
+           }
             isPasswordVisible=!
-                    isPasswordVisible;
+                   isPasswordVisible;
 
 
         });
@@ -134,4 +143,6 @@ public class LoginFragment extends Fragment {
                 });
 
     }
+
+
 }
