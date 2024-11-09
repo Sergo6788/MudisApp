@@ -20,4 +20,8 @@
     <string name="profile">Profile</string>
     <string name="cart">Cart</string>
     <string name="exit">Exit Account</string>
+    <string name="profile_fragment">Profile</string>
+    <string name="your_name">Your name</string>
+    <string name="my_account">My Account</string>
+    <string name="make_changes_to_your_account">Make changes to your account</string>
 </resources>
