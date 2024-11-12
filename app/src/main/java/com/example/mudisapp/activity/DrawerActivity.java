@@ -1,6 +1,7 @@
 package com.example.mudisapp.activity;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -26,8 +27,6 @@ public class DrawerActivity extends AppCompatActivity {
         navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(binding.navView,navController);
         applyClick();
-
-
     }
 
     private void applyClick()
@@ -37,8 +36,15 @@ public class DrawerActivity extends AppCompatActivity {
         });
 
     }
+    public void hideDrawer(boolean isDrawerNeedHide){
+        if(isDrawerNeedHide)
+            binding.btnDrawer.setVisibility(View.GONE);
+        else
+            binding.btnDrawer.setVisibility(View.VISIBLE);
+    }
 
     private void openDriver(){
         binding.getRoot().openDrawer(GravityCompat.START);
     }
 }
+
