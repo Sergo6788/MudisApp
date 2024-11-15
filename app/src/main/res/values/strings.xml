@@ -31,5 +31,10 @@
     <string name="payment_methods">Payment Methods</string>
     <string name="choose_your_preferred_payment_option">Choose your preferred payment option</string>
     <string name="help_amp_support"><![CDATA[Help & Support]]></string>
+    <string name="completed_order">Completed Order</string>
+    <string name="in_process">In Process</string>
+    <string name="cancelled_order">Cancelled Order</string>
+    <string name="payment_method_card">Payment Method: Card</string>
+    <string name="payment_method_cash">Payment Method: Cash</string>
 
 </resources>
