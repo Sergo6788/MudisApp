@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:text="Payment Method: Credit Card"
             android:textSize="18sp"
-            android:textColor="@color/hint_color"
+            android:textColor="@color/grey_text_order_history"
             android:layout_marginTop="4dp"/>
 
         <LinearLayout
@@ -61,14 +61,14 @@
                 android:layout_height="wrap_content"
                 android:text="20₪"
                 android:textSize="19sp"
-                android:textColor="@color/hint_color" />
+                android:textColor="@color/grey_text_order_history" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" · "
                 android:textSize="19sp"
-                android:textColor="@color/hint_color" />
+                android:textColor="@color/grey_text_order_history" />
 
             <TextView
                 android:id="@+id/tvOrderDate"
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:text="Today at 13:14"
                 android:textSize="19sp"
-                android:textColor="@color/hint_color" />
+                android:textColor="@color/grey_text_order_history" />
         </LinearLayout>
 
 

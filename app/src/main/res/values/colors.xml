@@ -10,5 +10,6 @@
     <color name="blue">#FF34AEEB</color>
     <color name="grey_text_profile">#C2C2C2</color>
     <color name="grey_stripe">#EBEBEB</color>
+    <color name="grey_text_order_history">#6A6868</color>
 
 </resources>

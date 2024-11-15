@@ -36,5 +36,12 @@
     <string name="cancelled_order">Cancelled Order</string>
     <string name="payment_method_card">Payment Method: Card</string>
     <string name="payment_method_cash">Payment Method: Cash</string>
+    <string name="payment_method">PAYMENT METHOD</string>
+    <string name="apple_pay">Apple Pay</string>
+    <string name="google_pay">Google Pay</string>
+    <string name="bank_cards">Bank Cards</string>
+    <string name="add_card_gift_card">Add card / gift card</string>
+    <string name="more_txt">More</string>
+    <string name="cash_on_delivery">Cash on delivery</string>
 
 </resources>
