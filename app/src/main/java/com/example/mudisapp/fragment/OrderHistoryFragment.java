@@ -1,5 +1,7 @@
 package com.example.mudisapp.fragment;
 
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;

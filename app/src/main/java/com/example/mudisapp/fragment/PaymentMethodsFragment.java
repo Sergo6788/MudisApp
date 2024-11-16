@@ -1,5 +1,6 @@
 package com.example.mudisapp.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +17,13 @@ import com.example.mudisapp.app.App;
 import com.example.mudisapp.databinding.FragmentOrderHistoryBinding;
 import com.example.mudisapp.databinding.FragmentPaymentMethodsBinding;
 import com.example.mudisapp.enums.PaymentMethod;
+import com.example.mudisapp.shared.SharedManager;
+
+import java.util.Objects;
 
 public class PaymentMethodsFragment extends Fragment {
     public FragmentPaymentMethodsBinding binding;
-
+    String paymentMethod = App.sharedManager.getPaymentMethod();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,6 +36,7 @@ public class PaymentMethodsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         applyClick();
+        setupView();
     }
 
     private void applyClick(){
@@ -48,6 +53,11 @@ public class PaymentMethodsFragment extends Fragment {
             App.sharedManager.savePaymentMethod(PaymentMethod.CASH);
         });
 
+    }
+    private void setupView(){
+        if(Objects.equals(paymentMethod, "Apple Pay")) {binding.rbApplePay.setChecked(true);}
+        else if(Objects.equals(paymentMethod, "Google Pay")) {binding.rbGooglePay.setChecked(true);}
+        else{binding.rbCash.setChecked(true);}
     }
 
 }
