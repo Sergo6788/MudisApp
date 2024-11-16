@@ -12,8 +12,10 @@ import androidx.navigation.Navigation;
 
 import com.example.mudisapp.R;
 import com.example.mudisapp.activity.DrawerActivity;
+import com.example.mudisapp.app.App;
 import com.example.mudisapp.databinding.FragmentOrderHistoryBinding;
 import com.example.mudisapp.databinding.FragmentPaymentMethodsBinding;
+import com.example.mudisapp.enums.PaymentMethod;
 
 public class PaymentMethodsFragment extends Fragment {
     public FragmentPaymentMethodsBinding binding;
@@ -35,6 +37,15 @@ public class PaymentMethodsFragment extends Fragment {
     private void applyClick(){
         binding.ivArrowBack.setOnClickListener(v -> {
             Navigation.findNavController(v).popBackStack();
+        });
+        binding.rbApplePay.setOnClickListener(v -> {
+            App.sharedManager.savePaymentMethod(PaymentMethod.APPLE_PAY);
+        });
+        binding.rbGooglePay.setOnClickListener(v -> {
+            App.sharedManager.savePaymentMethod(PaymentMethod.GOOGLE_PAY);
+        });
+        binding.rbCash.setOnClickListener(v -> {
+            App.sharedManager.savePaymentMethod(PaymentMethod.CASH);
         });
 
     }

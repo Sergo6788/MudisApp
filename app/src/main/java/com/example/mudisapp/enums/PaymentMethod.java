@@ -1,6 +1,8 @@
 package com.example.mudisapp.enums;
 
 public enum PaymentMethod {
-    CARD,
+    APPLE_PAY,
+    GOOGLE_PAY,
+    BANK_CARD,
     CASH
 }

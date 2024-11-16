@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.mudisapp.R;
 import com.example.mudisapp.databinding.FragmentRegisterBinding;
 import com.example.mudisapp.model.FireStoreUser;
+import com.example.mudisapp.shared.SharedManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -41,6 +42,7 @@ public class RegisterFragment extends Fragment {
     private boolean isPasswordHidden = true;
     private boolean isRepeatPasswordHidden = true;
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
 
 
 
@@ -130,6 +132,7 @@ public class RegisterFragment extends Fragment {
 
                 });
     }
+
 }
 
 

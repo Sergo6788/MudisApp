@@ -51,14 +51,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
             Glide.with(binding.ivOrder)
                     .load(orderItem.getOrderMenu().get(0).getImage())
                     .into(binding.ivOrder);
-            binding.tvTotalAmount.setText(orderItem.getTotalAmount().toString());
+            binding.tvTotalAmount.setText(orderItem.getTotalAmount().toString() + "₪");
             binding.tvOrderDate.setText(orderItem.getOrderDate());
 
             if(orderItem.getOrderStatus() == OrderStatus.COMPLETED){binding.tvStatusOrder.setText(R.string.completed_order);}
             else if(orderItem.getOrderStatus() == OrderStatus.InPROCESS){binding.tvStatusOrder.setText(R.string.in_process);}
             else if(orderItem.getOrderStatus() == OrderStatus.CANCELED){binding.tvStatusOrder.setText(R.string.cancelled_order);}
 
-            if(orderItem.getPaymentMethod() == PaymentMethod.CARD){binding.tvPaymentMethod.setText(R.string.payment_method_card);}
+            if(orderItem.getPaymentMethod() == PaymentMethod.APPLE_PAY){binding.tvPaymentMethod.setText(R.string.payment_method_card);}
+            else if(orderItem.getPaymentMethod() == PaymentMethod.GOOGLE_PAY){binding.tvPaymentMethod.setText(R.string.payment_method_card);}
+            else if(orderItem.getPaymentMethod() == PaymentMethod.BANK_CARD){binding.tvPaymentMethod.setText(R.string.payment_method_card);}
             else if(orderItem.getPaymentMethod() == PaymentMethod.CASH){binding.tvPaymentMethod.setText(R.string.payment_method_cash);}
 
 

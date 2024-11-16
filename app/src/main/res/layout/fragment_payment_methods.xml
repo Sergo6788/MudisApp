@@ -131,7 +131,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
@@ -161,7 +161,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
 
             android:backgroundTint="@color/grey_stripe"
             app:cardCornerRadius="8dp">
@@ -206,14 +206,17 @@
         app:layout_constraintTop_toBottomOf="@+id/tvPaymentMethod">
 
         <RadioButton
+            android:id="@+id/rbApplePay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"/>
         <RadioButton
+            android:id="@+id/rbGooglePay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="26dp"/>
         <RadioButton
+            android:id="@+id/rbCash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="148dp"/>
