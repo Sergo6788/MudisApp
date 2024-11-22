@@ -53,6 +53,7 @@ public class PaymentMethodsFragment extends Fragment {
             App.sharedManager.savePaymentMethod(PaymentMethod.CASH);
         });
 
+
     }
     private void setupView(){
         if(Objects.equals(paymentMethod, "Apple Pay")) {binding.rbApplePay.setChecked(true);}
