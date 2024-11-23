@@ -20,4 +20,17 @@
     <style name="DrawerTextAppearance" parent="Base.Theme.MudisApp">
         <item name="android:textSize">16sp</item>
     </style>
+    <style name="EditTextStyleMenu" parent="Base.Theme.MudisApp">
+    <item name="android:lines">1</item>
+    <item name="maxLines">1</item>
+    <item name="android:maxLength">24</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:paddingVertical">10dp</item>
+    <item name="android:paddingHorizontal">14dp</item>
+    <item name="android:textColorHint">@color/hint_color</item>
+    <item name="android:textColor">@color/black</item>
+    <item name="android:background">@color/white</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
 </resources>
