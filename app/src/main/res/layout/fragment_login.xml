@@ -81,7 +81,6 @@
         android:src="@drawable/eye_closed_img_svg"
         app:layout_constraintBottom_toBottomOf="@+id/etPassword"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintTop_toTopOf="@+id/etPassword" />
 
     <androidx.cardview.widget.CardView

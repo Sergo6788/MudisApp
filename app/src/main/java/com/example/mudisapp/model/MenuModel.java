@@ -6,6 +6,7 @@ public class MenuModel {
     private Double price;
     private boolean isReady;
 
+
     public MenuModel(String image, String name, Double price){
         this.image = image;
         this.name = name;
@@ -17,6 +18,7 @@ public class MenuModel {
         this.name = name;
         this.price = price;
         this.isReady = isReady;
+
     }
     public Double getPrice(){
         return price;
@@ -30,5 +32,6 @@ public class MenuModel {
     public boolean isReady(){
         return  isReady;
     }
+
 
 }
