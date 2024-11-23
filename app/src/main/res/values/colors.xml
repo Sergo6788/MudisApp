@@ -7,5 +7,13 @@
     <color name="main_color">#AF3D00</color>
     <color name="hint_color">#88000000</color>
     <color name="card_background_color">#88CECECE</color>
+
     <color name="grey">#ECECEC</color>
+
+    <color name="blue">#FF34AEEB</color>
+    <color name="grey_text_profile">#C2C2C2</color>
+    <color name="grey_stripe">#EBEBEB</color>
+    <color name="grey_text_order_history">#6A6868</color>
+
+
 </resources>

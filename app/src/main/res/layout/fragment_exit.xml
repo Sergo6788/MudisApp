@@ -5,6 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".fragment.ExitFragment">
 
+    <ProgressBar
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_gravity="center" />
 
 
 </FrameLayout>

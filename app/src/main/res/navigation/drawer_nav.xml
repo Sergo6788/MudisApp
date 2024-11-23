@@ -16,9 +16,6 @@
         <action
             android:id="@+id/action_mainPageFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
-        <action
-            android:id="@+id/action_mainPageFragment_to_exitFragment"
-            app:destination="@id/exitFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -28,9 +25,6 @@
         <action
             android:id="@+id/action_cartFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
-        <action
-            android:id="@+id/action_cartFragment_to_exitFragment"
-            app:destination="@id/exitFragment" />
         <action
             android:id="@+id/action_cartFragment_to_mainPageFragment"
             app:destination="@id/mainPageFragment" />
@@ -49,10 +43,32 @@
             android:id="@+id/action_profileFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
         <action
-            android:id="@+id/action_profileFragment_to_exitFragment"
-            app:destination="@id/exitFragment" />
-        <action
             android:id="@+id/action_profileFragment_to_mainPageFragment"
             app:destination="@id/mainPageFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_orderHistoryFragment"
+            app:destination="@id/orderHistoryFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_paymentMethodsFragment"
+            app:destination="@id/paymentMethodsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_exitFragment"
+            app:destination="@id/exitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderHistoryFragment"
+        android:name="com.example.mudisapp.fragment.OrderHistoryFragment"
+        android:label="OrderHistoryFragment" >
+        <action
+            android:id="@+id/action_orderHistoryFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentMethodsFragment"
+        android:name="com.example.mudisapp.fragment.PaymentMethodsFragment"
+        android:label="PaymentMethodsFragment" >
+        <action
+            android:id="@+id/action_paymentMethodsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 </navigation>

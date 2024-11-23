@@ -1,8 +1,7 @@
 <resources>
 
-    <string name="app_name">MudisApp</string>
+    <string name="app_name">SchoolFuel</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sign_in_order_now"><![CDATA[Sign In & order now!]]></string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -27,4 +26,30 @@
     <string name="pay_now">Pay Now</string>
     <string name="my_cart">My Cart</string>
     <string name="total_price">Total Price:</string>
+    <string name="profile_fragment">Profile</string>
+    <string name="your_name">Your name</string>
+    <string name="my_account">My Account</string>
+    <string name="make_changes_to_your_account">Make changes to your account</string>
+    <string name="order_history">Order History</string>
+    <string name="track_your_past_orders_effortlessly">Track your past orders effortlessly</string>
+    <string name="log_out">Log Out</string>
+    <string name="further_secure_your_account_for_safety">Further secure your account for safety</string>
+    <string name="more">More</string>
+    <string name="payment_methods">Payment Methods</string>
+    <string name="choose_your_preferred_payment_option">Choose your preferred payment option</string>
+    <string name="help_amp_support"><![CDATA[Help & Support]]></string>
+    <string name="completed_order">Completed Order</string>
+    <string name="in_process">In Process</string>
+    <string name="cancelled_order">Cancelled Order</string>
+    <string name="payment_method_card">Payment Method: Card</string>
+    <string name="payment_method_cash">Payment Method: Cash</string>
+    <string name="payment_method">PAYMENT METHOD</string>
+    <string name="apple_pay">Apple Pay</string>
+    <string name="google_pay">Google Pay</string>
+    <string name="bank_cards">Bank Cards</string>
+    <string name="add_card_gift_card">Add card / gift card</string>
+    <string name="more_txt">More</string>
+    <string name="cash_on_delivery">Cash on delivery</string>
+
+
 </resources>
