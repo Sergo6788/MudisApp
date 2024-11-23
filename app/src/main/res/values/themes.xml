@@ -20,4 +20,7 @@
     <style name="DrawerTextAppearance" parent="Base.Theme.MudisApp">
         <item name="android:textSize">16sp</item>
     </style>
+    <style name="ColorBlue" parent="Base.Theme.MudisApp">
+        <item name="buttonTint">@color/blue</item>
+    </style>
 </resources>
