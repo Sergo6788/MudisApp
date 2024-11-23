@@ -2,6 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#FF0000</color>
 
     <color name="yellow">#FFDC13</color>
     <color name="main_color">#AF3D00</color>
@@ -9,11 +10,12 @@
     <color name="card_background_color">#88CECECE</color>
 
     <color name="grey">#ECECEC</color>
-
     <color name="blue">#FF34AEEB</color>
     <color name="grey_text_profile">#C2C2C2</color>
     <color name="grey_stripe">#EBEBEB</color>
     <color name="grey_text_order_history">#6A6868</color>
+    <color name="orange_card_hot_deals">#E85300</color>
+    <color name="green_button_add">#074E0A</color>
 
 
 </resources>
