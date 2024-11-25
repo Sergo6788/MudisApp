@@ -56,10 +56,10 @@ public class OrderHistoryFragment extends Fragment {
     private void setAdapter(){
         ArrayList<OrderModel> list = new ArrayList<>();
         ArrayList<MenuModel> listMenuModel = new ArrayList<>();
-        listMenuModel.add(new MenuModel("https://4g-inter.net/image/cache/catalog/goods/ai/3d/lion1-500x500.jpg", "Fish", 1291.99));
-        listMenuModel.add(new MenuModel("", "Meat", 129.99));
-        listMenuModel.add(new MenuModel("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQULAFFIeoTlEXkF8dADrcN0DSxVMY7mwdvwA&s", "Egg", 3259.99));
-        listMenuModel.add(new MenuModel("https://masterpiecer-images.s3.yandex.net/0e40edb447e111ee9bda5a1112d6d6c5:upscaled", "Milk", 14359.99));
+        listMenuModel.add(new MenuModel("https://4g-inter.net/image/cache/catalog/goods/ai/3d/lion1-500x500.jpg", "Fish", 1291));
+        listMenuModel.add(new MenuModel("", "Meat", 129));
+        listMenuModel.add(new MenuModel("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQULAFFIeoTlEXkF8dADrcN0DSxVMY7mwdvwA&s", "Egg", 3259));
+        listMenuModel.add(new MenuModel("https://masterpiecer-images.s3.yandex.net/0e40edb447e111ee9bda5a1112d6d6c5:upscaled", "Milk", 14359));
         list.add(new OrderModel(Arrays.asList(listMenuModel.get(0), listMenuModel.get(2)), "12.11.2024", OrderStatus.COMPLETED, PaymentMethod.APPLE_PAY));
         list.add(new OrderModel(Arrays.asList(listMenuModel.get(3), listMenuModel.get(1)), "11.11.2024", OrderStatus.CANCELED, PaymentMethod.CASH));
         list.add(new OrderModel(Arrays.asList(listMenuModel.get(2), listMenuModel.get(2)), "13.11.2024", OrderStatus.InPROCESS, PaymentMethod.GOOGLE_PAY));

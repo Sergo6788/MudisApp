@@ -62,8 +62,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
             else if(orderItem.getPaymentMethod() == PaymentMethod.GOOGLE_PAY){binding.tvPaymentMethod.setText(R.string.payment_method_card);}
             else if(orderItem.getPaymentMethod() == PaymentMethod.BANK_CARD){binding.tvPaymentMethod.setText(R.string.payment_method_card);}
             else if(orderItem.getPaymentMethod() == PaymentMethod.CASH){binding.tvPaymentMethod.setText(R.string.payment_method_cash);}
-
-
         }
     }
 }

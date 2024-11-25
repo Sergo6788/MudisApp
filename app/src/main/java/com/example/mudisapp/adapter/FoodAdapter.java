@@ -4,9 +4,11 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.mudisapp.databinding.RecycleViewMenu1Binding;
 import com.example.mudisapp.databinding.RecycleViewMenuBinding;
 import com.example.mudisapp.model.MenuModel;
 
@@ -29,10 +31,9 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     @NonNull
     @Override
     public FoodAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        RecycleViewMenuBinding binding = RecycleViewMenuBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        RecycleViewMenu1Binding binding = RecycleViewMenu1Binding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new FoodAdapter.ViewHolder(binding);
     }
-
 
 
     @Override
@@ -47,18 +48,20 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        public RecycleViewMenuBinding binding;
+        public RecycleViewMenu1Binding binding;
 
-        public ViewHolder(RecycleViewMenuBinding binding){
+        public ViewHolder(RecycleViewMenu1Binding binding){
             super(binding.getRoot());
             this.binding = binding;
         }
+        
+
         public void bind(MenuModel menuItem){
-            Glide.with(binding.ivMeal)
+            Glide.with(binding.ivDish)
                     .load(menuItem.getImage())
-                    .into(binding.ivMeal);
+                    .into(binding.ivDish);
             binding.tvName.setText(menuItem.getName());
-            binding.tvPrice.setText(menuItem.getPrice().toString());
+            binding.tvPrice.setText(menuItem.getPrice() + "₪");
 
         }
     }
