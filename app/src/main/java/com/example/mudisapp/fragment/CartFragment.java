@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.mudisapp.adapter.FoodAdapter;
+import com.example.mudisapp.databinding.FragmentCart1Binding;
 import com.example.mudisapp.databinding.FragmentCartBinding;
 import com.example.mudisapp.model.MenuModel;
 
@@ -20,14 +21,14 @@ import java.util.ArrayList;
 
 
 public class CartFragment extends Fragment implements FoodAdapter.OnClickListener {
-    public FragmentCartBinding binding;
+    public FragmentCart1Binding binding;
 
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentCartBinding.inflate(inflater);
+        binding = FragmentCart1Binding.inflate(inflater);
         return binding.getRoot();
     }
 
@@ -53,12 +54,17 @@ public class CartFragment extends Fragment implements FoodAdapter.OnClickListene
 
 
         binding.rvCart.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false));
-        binding.rvCart.setAdapter(new FoodAdapter(list,this));
+        binding.rvCart.setAdapter(new FoodAdapter(list,this, requireContext()));
     }
 
 
     @Override
     public void click(MenuModel menuItem) {
         Toast.makeText(requireContext(),menuItem.getName(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void toFavorite(MenuModel menuItem) {
+
     }
 }

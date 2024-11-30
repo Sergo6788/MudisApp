@@ -1,5 +1,7 @@
 package com.example.mudisapp.model;
 
+import android.view.Menu;
+
 public class MenuModel {
     private String image;
     private String name;
@@ -12,6 +14,9 @@ public class MenuModel {
         this.name = name;
         this.price = price;
         this.isReady = true;
+    }
+    public MenuModel(){
+
     }
     public MenuModel(String image, String name, int price, boolean isReady){
         this.image = image;

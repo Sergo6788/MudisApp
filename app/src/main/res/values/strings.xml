@@ -50,6 +50,9 @@
     <string name="add_card_gift_card">Add card / gift card</string>
     <string name="more_txt">More</string>
     <string name="cash_on_delivery">Cash on delivery</string>
+    <string name="meals">Meals</string>
+    <string name="snacks">Snacks</string>
+    <string name="drinks">Drinks</string>
 
 
 </resources>

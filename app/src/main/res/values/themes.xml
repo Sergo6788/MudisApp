@@ -37,6 +37,8 @@
 
     <style name="ColorBlue" parent="Base.Theme.MudisApp">
         <item name="buttonTint">@color/blue</item>
-
+    </style>
+    <style name="ProgressBarStyle" parent="Base.Theme.MudisApp">
+        <item name="colorControlActivated">@color/blue</item>
     </style>
 </resources>
