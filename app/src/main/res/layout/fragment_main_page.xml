@@ -127,7 +127,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="64dp"
         android:theme="@style/ProgressBarStyle"
-        app:layout_constraintTop_toBottomOf="@+id/categoryLayout"/>
+        app:layout_constraintTop_toBottomOf="@+id/categoryLayout"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.example.mudisapp.R;
 import com.example.mudisapp.adapter.FoodAdapter;
-import com.example.mudisapp.databinding.FragmentMainPage1Binding;
+import com.example.mudisapp.databinding.FragmentMainPageBinding;
 
 import com.example.mudisapp.model.MenuModel;
 import com.example.mudisapp.repository.FirebaseRepository;
@@ -25,14 +25,14 @@ import com.example.mudisapp.repository.FirebaseRepository;
 import java.util.ArrayList;
 
 public class MainPageFragment extends Fragment implements FoodAdapter.OnClickListener {
-    public FragmentMainPage1Binding binding;
+    public FragmentMainPageBinding binding;
     private FirebaseRepository firebaseDataBase;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentMainPage1Binding.inflate(inflater);
+        binding = FragmentMainPageBinding.inflate(inflater);
         firebaseDataBase = new ViewModelProvider(this).get(FirebaseRepository.class);
         return binding.getRoot();
     }

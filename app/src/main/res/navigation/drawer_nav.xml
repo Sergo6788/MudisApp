@@ -21,7 +21,7 @@
         android:id="@+id/cartFragment"
         android:name="com.example.mudisapp.fragment.CartFragment"
         android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart1" >
+        tools:layout="@layout/fragment_cart" >
         <action
             android:id="@+id/action_cartFragment_to_profileFragment"
             app:destination="@id/profileFragment" />

@@ -12,23 +12,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.mudisapp.adapter.CartAdapter;
 import com.example.mudisapp.adapter.FoodAdapter;
-import com.example.mudisapp.databinding.FragmentCart1Binding;
 import com.example.mudisapp.databinding.FragmentCartBinding;
 import com.example.mudisapp.model.MenuModel;
 
 import java.util.ArrayList;
 
 
-public class CartFragment extends Fragment implements FoodAdapter.OnClickListener {
-    public FragmentCart1Binding binding;
+public class CartFragment extends Fragment implements CartAdapter.OnClickListener {
+    public FragmentCartBinding binding;
 
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentCart1Binding.inflate(inflater);
+        binding = FragmentCartBinding.inflate(inflater);
         return binding.getRoot();
     }
 
@@ -36,6 +36,7 @@ public class CartFragment extends Fragment implements FoodAdapter.OnClickListene
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setAdapter();
+        applyClick();
     }
 
 
@@ -54,7 +55,7 @@ public class CartFragment extends Fragment implements FoodAdapter.OnClickListene
 
 
         binding.rvCart.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false));
-        binding.rvCart.setAdapter(new FoodAdapter(list,this, requireContext()));
+        binding.rvCart.setAdapter(new CartAdapter(list,this, requireContext()));
     }
 
 
@@ -63,8 +64,4 @@ public class CartFragment extends Fragment implements FoodAdapter.OnClickListene
         Toast.makeText(requireContext(),menuItem.getName(), Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void toFavorite(MenuModel menuItem) {
-
-    }
 }
