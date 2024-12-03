@@ -72,49 +72,6 @@
         android:orientation="vertical"
         android:padding="8dp"
         app:layout_constraintTop_toBottomOf="@+id/cardUser">
-        <!--Card My Account-->
-        <LinearLayout
-            android:id="@+id/myAccountLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <!--Image Profile-->
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_margin="16dp"
-                android:src="@drawable/baseline_person_24"
-                app:tint="@color/black" />
-            <!--Text for card My Account-->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:orientation="vertical">
-                <!--Text My Account-->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/my_account"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
-                <!--Text Make Changes to your account-->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/make_changes_to_your_account"
-                    android:textColor="@color/grey_text_profile"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-        </LinearLayout>
-        <!--Stripe between cards-->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="8dp"
-            android:background="@color/grey_stripe" />
 
         <!--Card Order History-->
         <LinearLayout
@@ -148,6 +105,90 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/track_your_past_orders_effortlessly"
+                    android:textColor="@color/grey_text_profile"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="8dp"
+            android:background="@color/grey_stripe" />
+
+        <LinearLayout
+            android:id="@+id/myFavoritesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_margin="16dp"
+                android:src="@drawable/baseline_favorite_border_24"
+                app:tint="@color/black" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_favorites"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/track_your_favorites_dishes"
+                    android:textColor="@color/grey_text_profile"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="8dp"
+            android:background="@color/grey_stripe" />
+
+        <LinearLayout
+            android:id="@+id/PaymentMethodLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_margin="16dp"
+                android:src="@drawable/baseline_payment_24"
+                app:tint="@color/black" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/payment_methods"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/choose_your_preferred_payment_option"
                     android:textColor="@color/grey_text_profile"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -217,47 +258,7 @@
         android:padding="8dp"
         app:layout_constraintTop_toBottomOf="@+id/tvMore">
         <!--Card Payment Methods-->
-        <LinearLayout
-            android:id="@+id/PaymentMethodLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_margin="16dp"
-                android:src="@drawable/baseline_payment_24"
-                app:tint="@color/black" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/payment_methods"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/choose_your_preferred_payment_option"
-                    android:textColor="@color/grey_text_profile"
-                    android:textSize="14sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="8dp"
-            android:background="@color/grey_stripe" />
 
         <!--Card Help & Support-->
         <LinearLayout

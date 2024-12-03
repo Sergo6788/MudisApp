@@ -54,6 +54,9 @@
         <action
             android:id="@+id/action_profileFragment_to_exitFragment"
             app:destination="@id/exitFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
     </fragment>
     <fragment
         android:id="@+id/orderHistoryFragment"
@@ -69,6 +72,14 @@
         android:label="PaymentMethodsFragment" >
         <action
             android:id="@+id/action_paymentMethodsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.mudisapp.fragment.FavoritesFragment"
+        android:label="FavoritesFragment" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
 </navigation>

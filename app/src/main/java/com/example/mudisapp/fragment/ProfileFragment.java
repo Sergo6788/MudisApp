@@ -42,14 +42,14 @@ public class ProfileFragment extends Fragment {
     }
 
     private void applyClick(){
-        binding.myAccountLayout.setOnClickListener(v -> {
-            Toast.makeText(requireContext(), "Coming soon", Toast.LENGTH_SHORT).show();
-        });
         binding.myOrderHistoryLayout.setOnClickListener(v -> {
             findNavController(v).navigate(R.id.action_profileFragment_to_orderHistoryFragment);
         });
         binding.PaymentMethodLayout.setOnClickListener(v -> {
             findNavController(v).navigate(R.id.action_profileFragment_to_paymentMethodsFragment);
+        });
+        binding.myFavoritesLayout.setOnClickListener(v -> {
+           findNavController(v).navigate(R.id.action_profileFragment_to_favoritesFragment);
         });
         binding.logOutLayout.setOnClickListener(v -> {
             showMaterialDialog();
