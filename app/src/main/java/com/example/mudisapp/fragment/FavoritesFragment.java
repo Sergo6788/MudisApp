@@ -4,18 +4,37 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.mudisapp.activity.DrawerActivity;
+import com.example.mudisapp.adapter.FoodAdapter;
+import com.example.mudisapp.app.App;
 import com.example.mudisapp.databinding.FragmentFavoritesBinding;
-import com.example.mudisapp.databinding.FragmentOrderHistoryBinding;
+import com.example.mudisapp.model.MenuModel;
+import com.example.mudisapp.repository.FirebaseRepository;
 
-public class FavoritesFragment extends Fragment {
+import java.util.ArrayList;
+
+public class FavoritesFragment extends Fragment implements FoodAdapter.OnClickListener, FoodAdapter.ChangeFavorite{
     public FragmentFavoritesBinding binding;
+    private ArrayList<MenuModel> favoriteList = App.sharedManager.getListFavorite();
+    @Override
+    public void click(MenuModel menuItem) {
+
+    }
+
+    @Override
+    public void clickHeart(MenuModel menuItem) {
+        App.sharedManager.saveFavorite(menuItem, true);
+        favoriteList = App.sharedManager.getListFavorite();
+        binding.rvFavorites.getAdapter().notifyDataSetChanged();
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -28,8 +47,13 @@ public class FavoritesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setAdapter(favoriteList);
         applyClick();
+    }
 
+    private void setAdapter(ArrayList<MenuModel> list){
+        binding.rvFavorites.setLayoutManager(new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false));
+        binding.rvFavorites.setAdapter(new FoodAdapter(list,this, requireContext()));
     }
 
     private void applyClick(){
@@ -38,4 +62,6 @@ public class FavoritesFragment extends Fragment {
         });
         
     }
+
+
 }

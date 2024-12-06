@@ -25,6 +25,7 @@ public class FirebaseRepository extends ViewModel {
 
 
     public void getMenu() {
+        menuList.clear();
         dataBase.collection("Dishes").get()
                 .addOnSuccessListener(task -> {
                     for (DocumentSnapshot documentSnapshot : task.getDocuments()) {

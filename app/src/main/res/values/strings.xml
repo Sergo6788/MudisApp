@@ -55,6 +55,7 @@
     <string name="drinks">Drinks</string>
     <string name="my_favorites">My Favorites</string>
     <string name="track_your_favorites_dishes">Track your favorites dishes</string>
+    <string name="all">All</string>
 
 
 </resources>

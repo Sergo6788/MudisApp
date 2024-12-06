@@ -22,11 +22,18 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     private List<MenuModel> list;
     private OnClickListener onClickListener;
     private Context context;
+    private ChangeFavorite changeFavorite;
 
     public FoodAdapter(List<MenuModel>data, OnClickListener onClickListener, Context context){
         list = data;
         this.onClickListener = onClickListener;
         this.context = context;
+    }
+    public FoodAdapter(List<MenuModel>data, OnClickListener onClickListener, Context context, ChangeFavorite changeFavorite){
+        list = data;
+        this.onClickListener = onClickListener;
+        this.context = context;
+        this.changeFavorite = changeFavorite;
     }
     @Override
     public int getItemCount(){
@@ -50,13 +57,14 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             onClickListener.click(list.get(position));
         });
         holder.binding.ivHeart.setOnClickListener(v -> {
-            onClickListener.toFavorite(list.get(position));
             holder.changeHeartColor(context, list.get(position), true);
         });
     }
     public interface OnClickListener{
         void click(MenuModel menuItem);
-        void toFavorite(MenuModel menuItem);
+    }
+    public interface ChangeFavorite{
+        void clickHeart(MenuModel menuItem);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
@@ -66,7 +74,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             super(binding.getRoot());
             this.binding = binding;
         }
-        
 
         public void bind(MenuModel menuItem, Context context){
             Glide.with(binding.ivDish)

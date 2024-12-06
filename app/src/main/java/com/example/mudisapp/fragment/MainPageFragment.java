@@ -13,16 +13,20 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mudisapp.R;
 import com.example.mudisapp.adapter.FoodAdapter;
+import com.example.mudisapp.app.App;
 import com.example.mudisapp.databinding.FragmentMainPageBinding;
 
 import com.example.mudisapp.model.MenuModel;
 import com.example.mudisapp.repository.FirebaseRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainPageFragment extends Fragment implements FoodAdapter.OnClickListener {
     public FragmentMainPageBinding binding;
@@ -42,27 +46,42 @@ public class MainPageFragment extends Fragment implements FoodAdapter.OnClickLis
         super.onViewCreated(view, savedInstanceState);
         setObservers();
         firebaseDataBase.getMenu();
+        setView();
         applyClick();
     }
     public void applyClick(){
-        binding.rvMenu1.setOnClickListener(v -> {
+        binding.categoryAllContainer.setOnClickListener(v -> {
+            setCategoryColor(binding.categoryAllContainer, binding.underlineAll);
+            setAdapter(firebaseDataBase.getMenuList());
+        });
+
+        binding.categorySnacksContainer.setOnClickListener(v -> {
+            setCategoryColor(binding.categorySnacks, binding.underlineSnacks);
+            ArrayList<MenuModel> filteredList = filterMenu("SNACK");
+            binding.rvMenu.setAdapter(new FoodAdapter(filteredList, this, requireContext()));
+        });
+        binding.categoryDrinks.setOnClickListener(v -> {
+            setCategoryColor(binding.categoryDrinks, binding.underlineDrinks);
+            ArrayList<MenuModel> filteredList = filterMenu("DRINK");
+            binding.rvMenu.setAdapter(new FoodAdapter(filteredList, this, requireContext()));
+        });
+        binding.categoryMeals.setOnClickListener(v -> {
+            setCategoryColor(binding.categoryMeals, binding.underlineMeals);
+            ArrayList<MenuModel> filteredList = filterMenu("MEAL");
+            binding.rvMenu.setAdapter(new FoodAdapter(filteredList, this, requireContext()));
         });
 
     }
     private void setAdapter(ArrayList<MenuModel> list) {
-        binding.rvMenu1.setLayoutManager(new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false));
-        binding.rvMenu1.setAdapter(new FoodAdapter(list,this, requireContext()));
+        binding.rvMenu.setLayoutManager(new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false));
+        binding.rvMenu.setAdapter(new FoodAdapter(list,this, requireContext()));
     }
 
     @Override
     public void click(MenuModel menuItem) {
-        Toast.makeText(requireContext(), menuItem.getName(), Toast.LENGTH_SHORT).show();
+
     }
 
-    @Override
-    public void toFavorite(MenuModel menuItem) {
-        Toast.makeText(requireContext(), "Added to favorite", Toast.LENGTH_SHORT).show();
-    }
     private void setObservers(){
         firebaseDataBase.isTaskReady.observe(getViewLifecycleOwner(), data -> {
             if (data) {
@@ -72,4 +91,38 @@ public class MainPageFragment extends Fragment implements FoodAdapter.OnClickLis
             }
         });
     }
+
+    private ArrayList<MenuModel> filterMenu(String type){
+        ArrayList<MenuModel> filteredList = new ArrayList<>();
+        for(MenuModel item : firebaseDataBase.getMenuList())
+        {
+            if(item.getType().equals(type))
+            {
+                filteredList.add(item);
+            }
+        }
+        return filteredList;
+    }
+    private void setView(){
+        binding.categoryAllContainer.setTextColor(getResources().getColor(R.color.orange));
+        binding.underlineAll.setBackgroundColor(getResources().getColor(R.color.orange));
+    }
+    private void setCategoryColor(TextView selectedTextView, View selectedView){
+        binding.categoryAllContainer.setTextColor(getResources().getColor(R.color.grey_text_order_history));
+        binding.underlineAll.setBackgroundColor(getResources().getColor(R.color.grey_text_order_history));
+
+        binding.categoryMeals.setTextColor(getResources().getColor(R.color.grey_text_order_history));
+        binding.underlineMeals.setBackgroundColor(getResources().getColor(R.color.grey_text_order_history));
+
+        binding.categorySnacks.setTextColor(getResources().getColor(R.color.grey_text_order_history));
+        binding.underlineSnacks.setBackgroundColor(getResources().getColor(R.color.grey_text_order_history));
+
+        binding.categoryDrinks.setTextColor(getResources().getColor(R.color.grey_text_order_history));
+        binding.underlineDrinks.setBackgroundColor(getResources().getColor(R.color.grey_text_order_history));
+
+
+        selectedTextView.setTextColor(getResources().getColor(R.color.orange));
+        selectedView.setBackgroundColor(getResources().getColor(R.color.orange));
+    }
+
 }
