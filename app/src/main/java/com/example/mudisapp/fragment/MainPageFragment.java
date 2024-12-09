@@ -96,10 +96,7 @@ public class MainPageFragment extends Fragment implements FoodAdapter.OnClickLis
         ArrayList<MenuModel> filteredList = new ArrayList<>();
         for(MenuModel item : firebaseDataBase.getMenuList())
         {
-            if(item.getType().equals(type))
-            {
-                filteredList.add(item);
-            }
+            if(item.getType().equals(type)) {filteredList.add(item);}
         }
         return filteredList;
     }

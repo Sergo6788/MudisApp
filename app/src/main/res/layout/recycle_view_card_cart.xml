@@ -32,86 +32,80 @@
             android:src="@drawable/heart_svgrepo_com" />
     </androidx.cardview.widget.CardView>
 
-    <LinearLayout
-        android:id="@+id/textLayout"
+    <TextView
+        android:id="@+id/tvName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:orientation="vertical"
-        app:layout_constraintStart_toEndOf="@+id/photo_order"
-        app:layout_constraintTop_toTopOf="@+id/photo_order">
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/inter_semibold"
+        android:lines="1"
+        android:maxLength="25"
+        android:text="Pita with chicken"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/photo_order"
+        app:layout_constraintTop_toTopOf="@id/photo_order"
+        app:layout_constraintEnd_toStartOf="@id/countLayout"/>
 
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:ellipsize="end"
-            android:fontFamily="@font/inter_semibold"
-            android:lines="1"
-            android:maxLength="25"
-            android:text="Pita with chicken"
-            android:textSize="18sp" />
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="1"
+        android:maxLength="25"
+        android:text="20₪"
+        android:textColor="@color/grey_text_order_history"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/tvName"
+        app:layout_constraintTop_toBottomOf="@id/tvName" />
 
-        <TextView
-            android:id="@+id/tvPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:lines="1"
-            android:maxLength="25"
-            android:text="20₪"
-            android:textColor="@color/grey_text_order_history"
-            android:textSize="18sp" />
-    </LinearLayout>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="100dp"
-        android:layout_height="0dp"
-        android:layout_margin="20dp"
-        app:cardBackgroundColor="@color/grey_stripe"
-        app:cardCornerRadius="8dp"
+    <LinearLayout
+        android:id="@+id/countLayout"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/count_background"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:weightSum="3"
+        app:layout_constraintBottom_toBottomOf="@id/tvPrice"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/textLayout">
+        app:layout_constraintTop_toTopOf="@+id/tvName">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvMinus"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="8dp"
-            android:weightSum="3">
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="-"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="-"
-                android:textAlignment="center"
-                android:textSize="20sp" />
+        <TextView
+            android:id="@+id/tvCount"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="1"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="1"
-                android:textAlignment="center"
-                android:textSize="20sp" />
+        <TextView
+            android:id="@+id/tvPlus"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="+"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="+"
-                android:textAlignment="center"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,7 @@ import com.example.mudisapp.enums.PaymentMethod;
 import java.util.List;
 
 public class OrderModel {
-    private double totalAmount;
+    private int totalAmount;
     private List<MenuModel> orderMenu;
     private String orderDate;
     private OrderStatus orderStatus;
@@ -39,7 +39,7 @@ public class OrderModel {
         return paymentMethod;
     }
 
-    public Double getTotalAmount() {
+    public int getTotalAmount() {
         return totalAmount;
     }
 }

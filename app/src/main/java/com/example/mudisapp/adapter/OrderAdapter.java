@@ -51,7 +51,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
             Glide.with(binding.ivOrder)
                     .load(orderItem.getOrderMenu().get(0).getImage())
                     .into(binding.ivOrder);
-            binding.tvTotalAmount.setText(orderItem.getTotalAmount().toString() + "₪");
+            binding.tvTotalAmount.setText(orderItem.getTotalAmount() + "₪");
             binding.tvOrderDate.setText(orderItem.getOrderDate());
 
             if(orderItem.getOrderStatus() == OrderStatus.COMPLETED){binding.tvStatusOrder.setText(R.string.completed_order);}

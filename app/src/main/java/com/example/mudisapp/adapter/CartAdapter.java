@@ -37,14 +37,24 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull CartAdapter.ViewHolder holder, int position) {
         holder.bind(list.get(position), context);
-
-        holder.binding.getRoot().setOnClickListener(v -> {
-            onClickListener.click(list.get(position));
+        holder.binding.tvPlus.setOnClickListener(v -> {
+            int count = Integer.parseInt(holder.binding.tvCount.getText().toString());
+            count++;
+            holder.binding.tvCount.setText(Integer.toString(count));
         });
+        holder.binding.tvMinus.setOnClickListener(v -> {
+            int count = Integer.parseInt(holder.binding.tvCount.getText().toString());
+            if(count <= 1){onClickListener.decrease(list.get(position));}
+            else {
+                count--;
+                holder.binding.tvCount.setText(Integer.toString(count));
+            }
+        });
+
     }
 
     public interface OnClickListener{
-        void click(MenuModel menuItem);
+        void decrease(MenuModel menuItem);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder  {
@@ -60,7 +70,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     .into(binding.ivDish);
             binding.tvName.setText(menuItem.getName());
             binding.tvPrice.setText(menuItem.getPrice() + "₪");
-
         }
     }
 
