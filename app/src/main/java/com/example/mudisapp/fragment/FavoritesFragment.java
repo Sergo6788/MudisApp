@@ -21,7 +21,7 @@ import com.example.mudisapp.repository.FirebaseRepository;
 
 import java.util.ArrayList;
 
-public class FavoritesFragment extends Fragment implements FoodAdapter.OnClickListener, FoodAdapter.ChangeFavorite{
+public class FavoritesFragment extends Fragment implements FoodAdapter.OnClickListener{
     public FragmentFavoritesBinding binding;
     private ArrayList<MenuModel> favoriteList = App.sharedManager.getListFavorite();
     @Override
@@ -30,10 +30,8 @@ public class FavoritesFragment extends Fragment implements FoodAdapter.OnClickLi
     }
 
     @Override
-    public void clickHeart(MenuModel menuItem) {
-        App.sharedManager.saveFavorite(menuItem, true);
-        favoriteList = App.sharedManager.getListFavorite();
-        binding.rvFavorites.getAdapter().notifyDataSetChanged();
+    public void decrease(MenuModel menuItem) {
+
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

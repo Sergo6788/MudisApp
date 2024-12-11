@@ -3,6 +3,7 @@ package com.example.mudisapp.adapter;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -22,18 +23,11 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     private List<MenuModel> list;
     private OnClickListener onClickListener;
     private Context context;
-    private ChangeFavorite changeFavorite;
 
     public FoodAdapter(List<MenuModel>data, OnClickListener onClickListener, Context context){
         list = data;
         this.onClickListener = onClickListener;
         this.context = context;
-    }
-    public FoodAdapter(List<MenuModel>data, OnClickListener onClickListener, Context context, ChangeFavorite changeFavorite){
-        list = data;
-        this.onClickListener = onClickListener;
-        this.context = context;
-        this.changeFavorite = changeFavorite;
     }
     @Override
     public int getItemCount(){
@@ -53,18 +47,34 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(list.get(position), context);
 
+
         holder.binding.getRoot().setOnClickListener(v -> {
             onClickListener.click(list.get(position));
         });
         holder.binding.ivHeart.setOnClickListener(v -> {
             holder.changeHeartColor(context, list.get(position), true);
         });
+        holder.binding.btAdd.setOnClickListener(v -> {
+            holder.addDishToCart(list.get(position));
+        });
+
+        holder.binding.tvPlus.setOnClickListener(v -> {
+            int count = Integer.parseInt(holder.binding.tvCount.getText().toString());
+            count++;
+            holder.binding.tvCount.setText(Integer.toString(count));
+        });
+        holder.binding.tvMinus.setOnClickListener(v -> {
+            int count = Integer.parseInt(holder.binding.tvCount.getText().toString());
+            if(count <= 1){onClickListener.decrease(list.get(position));}
+            else {
+                count--;
+                holder.binding.tvCount.setText(Integer.toString(count));
+            }
+        });
     }
     public interface OnClickListener{
         void click(MenuModel menuItem);
-    }
-    public interface ChangeFavorite{
-        void clickHeart(MenuModel menuItem);
+        void decrease(MenuModel menuItem);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
@@ -82,9 +92,12 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             binding.tvName.setText(menuItem.getName());
             binding.tvPrice.setText(menuItem.getPrice() + "₪");
             changeHeartColor(context, menuItem);
-
-
+            if(App.sharedManager.isItemInCart(menuItem)){
+                binding.btAdd.setVisibility(View.GONE);
+                binding.countLayout.setVisibility(View.VISIBLE);
+            }
         }
+
         public void changeHeartColor(Context context, MenuModel menuItem){
             if(App.sharedManager.isMealInFavoriteList(menuItem)){
                 binding.ivHeart.setImageDrawable(context.getResources().getDrawable(R.drawable.heart_read));
@@ -103,6 +116,15 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
                 binding.ivHeart.setImageDrawable(context.getResources().getDrawable(R.drawable.heart_read));
             }
 
+        }
+        public void addDishToCart(MenuModel menuItem){
+            App.sharedManager.saveToCart(menuItem, false);
+            binding.btAdd.setVisibility(View.GONE);
+            binding.countLayout.setVisibility(View.VISIBLE);
+        }
+        public void deleteDishFromCart(){
+            binding.btAdd.setVisibility(View.VISIBLE);
+            binding.countLayout.setVisibility(View.GONE);
         }
     }
 }

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.mudisapp.R;
 import com.example.mudisapp.adapter.CartAdapter;
 import com.example.mudisapp.adapter.FoodAdapter;
+import com.example.mudisapp.app.App;
 import com.example.mudisapp.databinding.FragmentCartBinding;
 import com.example.mudisapp.enums.MealType;
 import com.example.mudisapp.model.MenuModel;
@@ -42,6 +43,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnClickListene
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        list = App.sharedManager.getCartList();
         setAdapter();
         materialDialog = createMaterialDialog();
         applyClick();
@@ -51,11 +53,6 @@ public class CartFragment extends Fragment implements CartAdapter.OnClickListene
     }
 
     private void setAdapter(){
-        list.add(new MenuModel("https://i.ibb.co/2nTJd93/4BBKkK.jpg", "Pita", 20, MealType.MEAL));
-        list.add(new MenuModel("https://i.ibb.co/YD9tsvg/images.jpg", "Coca-Cola", 8, MealType.DRINK));
-        list.add(new MenuModel("https://i.ibb.co/rdd8GB3/b-A9-A11-A82-B990-476-B-8-CFC-4-F62-E919-CC8-D.jpg", "Juice", 8, MealType.DRINK));
-
-
         binding.rvCart.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false));
         binding.rvCart.setAdapter(new CartAdapter(list,this, requireContext()));
     }
@@ -75,6 +72,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnClickListene
                 .setMessage("Do u want to delete this dish from the cart?")
                 .setPositiveButton("Yes", (d, which)->{
                     list.remove(currentDish);
+                    App.sharedManager.saveToCart(currentDish, true);
                     binding.rvCart.getAdapter().notifyDataSetChanged();
                 })
                 .setNegativeButton("No",(d, which)->{})

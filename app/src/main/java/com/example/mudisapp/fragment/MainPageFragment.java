@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -24,6 +25,7 @@ import com.example.mudisapp.databinding.FragmentMainPageBinding;
 
 import com.example.mudisapp.model.MenuModel;
 import com.example.mudisapp.repository.FirebaseRepository;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,9 @@ import java.util.List;
 public class MainPageFragment extends Fragment implements FoodAdapter.OnClickListener {
     public FragmentMainPageBinding binding;
     private FirebaseRepository firebaseDataBase;
+    private AlertDialog materialDialog;
+    private MenuModel currentDish;
+    private ArrayList<MenuModel> list = new ArrayList<>();
 
 
     @Override
@@ -45,6 +50,7 @@ public class MainPageFragment extends Fragment implements FoodAdapter.OnClickLis
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setObservers();
+        materialDialog = createMaterialDialog();
         firebaseDataBase.getMenu();
         setView();
         applyClick();
@@ -80,6 +86,12 @@ public class MainPageFragment extends Fragment implements FoodAdapter.OnClickLis
     @Override
     public void click(MenuModel menuItem) {
 
+    }
+
+    @Override
+    public void decrease(MenuModel menuItem) {
+        currentDish = menuItem;
+        showMaterialDialog();
     }
 
     private void setObservers(){
@@ -120,6 +132,21 @@ public class MainPageFragment extends Fragment implements FoodAdapter.OnClickLis
 
         selectedTextView.setTextColor(getResources().getColor(R.color.orange));
         selectedView.setBackgroundColor(getResources().getColor(R.color.orange));
+    }
+    public void showMaterialDialog(){
+        materialDialog.show();
+    }
+    private AlertDialog createMaterialDialog(){
+        MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(requireActivity())
+                .setTitle("Delete dish?")
+                .setMessage("Do u want to delete this dish from the cart?")
+                .setPositiveButton("Yes", (d, which)->{
+                    App.sharedManager.saveToCart(currentDish, true);
+
+                })
+                .setNegativeButton("No",(d, which)->{})
+                .setCancelable(false);
+        return dialog.create();
     }
 
 }

@@ -57,6 +57,8 @@ public class SharedManager {
         return sharedPreferences.getString("paymentMethod", "Cash on delivery");
     }
 
+
+
     public void saveFavorite(MenuModel menuItem, boolean isDelete) {
         ArrayList<MenuModel> listFavorites = getListFavorite();
         if(!isDelete){
@@ -76,5 +78,42 @@ public class SharedManager {
     public boolean isMealInFavoriteList(MenuModel menuItem){
         ArrayList<MenuModel> listFavorites = getListFavorite();
         return listFavorites.stream().anyMatch(m -> Objects.equals(m.getName(), menuItem.getName()));
+    }
+
+
+
+    public void saveToCart(MenuModel menuItem, boolean isNeedToDelete) {
+        ArrayList<MenuModel> cartList = getCartList();
+
+        if(isNeedToDelete) {
+            cartList.removeIf(cartItem -> Objects.equals(cartItem.getName(), menuItem.getName()));
+        }
+        else {
+            for(MenuModel dish : cartList){
+                if(dish.getName().equals(menuItem.getName())){
+                    break;
+                }
+            }
+            cartList.add(menuItem);
+        }
+
+        sharedPreferences.edit().putString("listCart", gson.toJson(cartList)).apply();
+    }
+    public void cleanCart() {
+        ArrayList<MenuModel> cartList = getCartList();
+        cartList.clear();
+
+        sharedPreferences.edit().putString("listCart", gson.toJson(cartList)).apply();
+    }
+
+    public ArrayList<MenuModel> getCartList() {
+        String json = sharedPreferences.getString("listCart", null);
+        Type listType = new TypeToken<ArrayList<MenuModel>>() {}.getType();
+        return json == null ? new ArrayList<>() : gson.fromJson(json, listType);
+    }
+    
+    public boolean isItemInCart(MenuModel menuItem) {
+        ArrayList<MenuModel> cartItems = getCartList();
+        return cartItems.stream().anyMatch(m -> Objects.equals(m.getName(), menuItem.getName()));
     }
 }
