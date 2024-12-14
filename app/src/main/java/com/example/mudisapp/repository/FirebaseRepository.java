@@ -15,6 +15,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -38,9 +39,13 @@ public class FirebaseRepository extends ViewModel {
                     Log.d("ERROR", error.getMessage());
                 });
     }
-    public ArrayList<MenuModel> getMenuList(){
+    public HashMap<MenuModel, Integer> getMenuList(){
+        HashMap<MenuModel, Integer> list = new HashMap<>();
         isTaskReady.setValue(false);
-        return menuList;
+        for(MenuModel menuItem : menuList) {
+            list.put(menuItem, 0);
+        }
+        return list;
     }
 
 }

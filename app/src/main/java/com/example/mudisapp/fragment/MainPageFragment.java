@@ -28,6 +28,7 @@ import com.example.mudisapp.repository.FirebaseRepository;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainPageFragment extends Fragment implements FoodAdapter.OnClickListener {
@@ -63,22 +64,22 @@ public class MainPageFragment extends Fragment implements FoodAdapter.OnClickLis
 
         binding.categorySnacksContainer.setOnClickListener(v -> {
             setCategoryColor(binding.categorySnacks, binding.underlineSnacks);
-            ArrayList<MenuModel> filteredList = filterMenu("SNACK");
+            HashMap<MenuModel, Integer> filteredList = filterMenu("SNACK");
             binding.rvMenu.setAdapter(new FoodAdapter(filteredList, this, requireContext()));
         });
         binding.categoryDrinks.setOnClickListener(v -> {
             setCategoryColor(binding.categoryDrinks, binding.underlineDrinks);
-            ArrayList<MenuModel> filteredList = filterMenu("DRINK");
+            HashMap<MenuModel, Integer> filteredList = filterMenu("DRINK");
             binding.rvMenu.setAdapter(new FoodAdapter(filteredList, this, requireContext()));
         });
         binding.categoryMeals.setOnClickListener(v -> {
             setCategoryColor(binding.categoryMeals, binding.underlineMeals);
-            ArrayList<MenuModel> filteredList = filterMenu("MEAL");
+            HashMap<MenuModel, Integer> filteredList = filterMenu("MEAL");
             binding.rvMenu.setAdapter(new FoodAdapter(filteredList, this, requireContext()));
         });
 
     }
-    private void setAdapter(ArrayList<MenuModel> list) {
+    private void setAdapter(HashMap<MenuModel, Integer> list) {
         binding.rvMenu.setLayoutManager(new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false));
         binding.rvMenu.setAdapter(new FoodAdapter(list,this, requireContext()));
     }
@@ -104,11 +105,11 @@ public class MainPageFragment extends Fragment implements FoodAdapter.OnClickLis
         });
     }
 
-    private ArrayList<MenuModel> filterMenu(String type){
-        ArrayList<MenuModel> filteredList = new ArrayList<>();
-        for(MenuModel item : firebaseDataBase.getMenuList())
+    private HashMap<MenuModel, Integer> filterMenu(String type){
+        HashMap<MenuModel, Integer> filteredList = new HashMap<>();
+        for(MenuModel item : firebaseDataBase.getMenuList().keySet())
         {
-            if(item.getType().equals(type)) {filteredList.add(item);}
+            if(item.getType().equals(type)) {filteredList.put(item, 0);}
         }
         return filteredList;
     }

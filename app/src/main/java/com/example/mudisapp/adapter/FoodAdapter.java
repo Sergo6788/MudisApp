@@ -1,6 +1,7 @@
 package com.example.mudisapp.adapter;
 
 import android.content.Context;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -17,15 +18,18 @@ import com.example.mudisapp.app.App;
 import com.example.mudisapp.databinding.RecycleViewCardBinding;
 import com.example.mudisapp.model.MenuModel;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
-    private List<MenuModel> list;
+    private List<Pair<MenuModel, Integer>> list;
     private OnClickListener onClickListener;
     private Context context;
 
-    public FoodAdapter(List<MenuModel>data, OnClickListener onClickListener, Context context){
-        list = data;
+    public FoodAdapter(HashMap<MenuModel, Integer> data, OnClickListener onClickListener, Context context){
+        for (HashMap.Entry<MenuModel, Integer> entry : data.entrySet()) {
+            list.add(Pair.create(entry.getKey(), entry.getValue()));
+        }
         this.onClickListener = onClickListener;
         this.context = context;
     }
@@ -45,17 +49,17 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(list.get(position), context);
+        holder.bind(list.get(position).first, context);
 
 
         holder.binding.getRoot().setOnClickListener(v -> {
-            onClickListener.click(list.get(position));
+            onClickListener.click(list.get(position).first);
         });
         holder.binding.ivHeart.setOnClickListener(v -> {
-            holder.changeHeartColor(context, list.get(position), true);
+            holder.changeHeartColor(context, list.get(position).first, true);
         });
         holder.binding.btAdd.setOnClickListener(v -> {
-            holder.addDishToCart(list.get(position));
+            holder.addDishToCart(list.get(position).first);
         });
 
         holder.binding.tvPlus.setOnClickListener(v -> {
@@ -65,7 +69,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         });
         holder.binding.tvMinus.setOnClickListener(v -> {
             int count = Integer.parseInt(holder.binding.tvCount.getText().toString());
-            if(count <= 1){onClickListener.decrease(list.get(position));}
+            if(count <= 1){onClickListener.decrease(list.get(position).first);}
             else {
                 count--;
                 holder.binding.tvCount.setText(Integer.toString(count));

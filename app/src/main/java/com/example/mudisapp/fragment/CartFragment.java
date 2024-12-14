@@ -25,13 +25,14 @@ import com.example.mudisapp.model.MenuModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class CartFragment extends Fragment implements CartAdapter.OnClickListener {
     public FragmentCartBinding binding;
     private AlertDialog materialDialog;
     private MenuModel currentDish;
-    private ArrayList<MenuModel> list = new ArrayList<>();
+    private HashMap<MenuModel, Integer> list = new HashMap<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,7 +55,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnClickListene
 
     private void setAdapter(){
         binding.rvCart.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false));
-        binding.rvCart.setAdapter(new CartAdapter(list,this, requireContext()));
+        binding.rvCart.setAdapter(new CartAdapter(list.keySet().stream().toList(),this, requireContext()));
     }
 
     @Override
