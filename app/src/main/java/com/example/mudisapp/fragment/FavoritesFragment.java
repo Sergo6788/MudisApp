@@ -24,7 +24,7 @@ import java.util.HashMap;
 
 public class FavoritesFragment extends Fragment implements FoodAdapter.OnClickListener{
     public FragmentFavoritesBinding binding;
-    private HashMap<MenuModel, Integer> favoriteList = App.sharedManager.getListFavorite();
+    private ArrayList<MenuModel> favoriteList = App.sharedManager.getListFavorite();
     @Override
     public void click(MenuModel menuItem) {
 
@@ -50,7 +50,7 @@ public class FavoritesFragment extends Fragment implements FoodAdapter.OnClickLi
         applyClick();
     }
 
-    private void setAdapter(HashMap<MenuModel, Integer> list){
+    private void setAdapter(ArrayList<MenuModel> list){
         binding.rvFavorites.setLayoutManager(new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false));
         binding.rvFavorites.setAdapter(new FoodAdapter(list,this, requireContext()));
     }

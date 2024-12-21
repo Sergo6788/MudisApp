@@ -31,6 +31,7 @@ public class FirebaseRepository extends ViewModel {
                 .addOnSuccessListener(task -> {
                     for (DocumentSnapshot documentSnapshot : task.getDocuments()) {
                         MenuModel data = documentSnapshot.toObject(MenuModel.class);
+                        data.setId(documentSnapshot.getId());
                         menuList.add(data);
                     }
                     isTaskReady.setValue(true);
@@ -39,13 +40,9 @@ public class FirebaseRepository extends ViewModel {
                     Log.d("ERROR", error.getMessage());
                 });
     }
-    public HashMap<MenuModel, Integer> getMenuList(){
-        HashMap<MenuModel, Integer> list = new HashMap<>();
+    public ArrayList<MenuModel> getMenuList(){
         isTaskReady.setValue(false);
-        for(MenuModel menuItem : menuList) {
-            list.put(menuItem, 0);
-        }
-        return list;
+        return menuList;
     }
 
 }

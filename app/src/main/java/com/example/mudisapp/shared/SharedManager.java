@@ -6,12 +6,12 @@ import android.content.SharedPreferences;
 import com.example.mudisapp.enums.PaymentMethod;
 import com.example.mudisapp.model.MenuModel;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 
 public class SharedManager {
@@ -61,60 +61,55 @@ public class SharedManager {
 
 
     public void saveFavorite(MenuModel menuItem, boolean isDelete) {
-        HashMap<MenuModel, Integer> listFavorites = getListFavorite();
+        ArrayList<MenuModel> listFavorites = getListFavorite();
         if(!isDelete){
-            listFavorites.put(menuItem, 0);
+            listFavorites.add(menuItem);
         }
         else
-            listFavorites.remove(menuItem);
+            listFavorites.removeIf(m -> Objects.equals(m.getName(), menuItem.getName()));
         sharedPreferences.edit().putString("listFavorites", gson.toJson(listFavorites)).apply();
     }
 
-    public HashMap<MenuModel, Integer> getListFavorite() {
-        Type listType = new TypeToken<HashMap<MenuModel, Integer>>() {
+    public ArrayList<MenuModel> getListFavorite() {
+        Type listType = new TypeToken<ArrayList<MenuModel>>() {
         }.getType();
         return gson.fromJson(sharedPreferences.getString("listFavorites",
-                gson.toJson(new HashMap<MenuModel, Integer>())), listType);
+                gson.toJson(new ArrayList<>())), listType);
     }
     public boolean isMealInFavoriteList(MenuModel menuItem){
-        HashMap<MenuModel, Integer> listFavorites = getListFavorite();
-        return listFavorites.get(menuItem) == null;
+        ArrayList<MenuModel> listFavorites = getListFavorite();
+        return listFavorites.stream().anyMatch(m -> Objects.equals(m.getName(), menuItem.getName()));
     }
 
 
 
-    public void saveToCart(MenuModel menuItem, boolean isNeedToDelete) {
-        HashMap<MenuModel, Integer> cartList = getCartList();
+    public void saveToCart(MenuModel menuItem, Integer count) {
+        HashMap<String, Integer> cartList = getCartList();
 
-        if(isNeedToDelete) {
-            cartList.remove(menuItem);
+        if(count == 0) {
+            cartList.remove(menuItem.getId());
         }
         else {
-            for(MenuModel dish : cartList.keySet()){
-                if(dish.getName().equals(menuItem.getName())){
-                    break;
-                }
-            }
-            cartList.put(menuItem, 1);
+            cartList.put(menuItem.getId(), count);
         }
 
         sharedPreferences.edit().putString("listCart", gson.toJson(cartList)).apply();
     }
     public void cleanCart() {
-        HashMap<MenuModel, Integer> cartList = getCartList();
+        HashMap<String, Integer> cartList = getCartList();
         cartList.clear();
 
         sharedPreferences.edit().putString("listCart", gson.toJson(cartList)).apply();
     }
 
-    public HashMap<MenuModel, Integer> getCartList() {
+    public HashMap<String, Integer> getCartList() {
         String json = sharedPreferences.getString("listCart", null);
-        Type listType = new TypeToken<HashMap<MenuModel, Integer>>() {}.getType();
+        Type listType = new TypeToken<HashMap<String, Integer>>() {}.getType();
         return json == null ? new HashMap<>() : gson.fromJson(json, listType);
     }
     
     public boolean isItemInCart(MenuModel menuItem) {
-        HashMap<MenuModel, Integer> cartItems = getCartList();
-        return cartItems.get(menuItem) == null;
+        HashMap<String, Integer> cartItems = getCartList();
+        return cartItems.get(menuItem.getId()) != null;
     }
 }

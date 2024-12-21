@@ -18,18 +18,17 @@ import com.example.mudisapp.app.App;
 import com.example.mudisapp.databinding.RecycleViewCardBinding;
 import com.example.mudisapp.model.MenuModel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
-    private List<Pair<MenuModel, Integer>> list;
+    private List<MenuModel> list;
     private OnClickListener onClickListener;
     private Context context;
 
-    public FoodAdapter(HashMap<MenuModel, Integer> data, OnClickListener onClickListener, Context context){
-        for (HashMap.Entry<MenuModel, Integer> entry : data.entrySet()) {
-            list.add(Pair.create(entry.getKey(), entry.getValue()));
-        }
+    public FoodAdapter(List<MenuModel> dishes, OnClickListener onClickListener, Context context){
+        list = dishes;
         this.onClickListener = onClickListener;
         this.context = context;
     }
@@ -49,29 +48,31 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(list.get(position).first, context);
+        holder.bind(list.get(position), context);
 
 
         holder.binding.getRoot().setOnClickListener(v -> {
-            onClickListener.click(list.get(position).first);
+            onClickListener.click(list.get(position));
         });
         holder.binding.ivHeart.setOnClickListener(v -> {
-            holder.changeHeartColor(context, list.get(position).first, true);
+            holder.changeHeartColor(context, list.get(position), true);
         });
         holder.binding.btAdd.setOnClickListener(v -> {
-            holder.addDishToCart(list.get(position).first);
+            holder.addDishToCart(list.get(position), 1);
         });
 
         holder.binding.tvPlus.setOnClickListener(v -> {
             int count = Integer.parseInt(holder.binding.tvCount.getText().toString());
             count++;
+            holder.addDishToCart(list.get(position), count);
             holder.binding.tvCount.setText(Integer.toString(count));
         });
         holder.binding.tvMinus.setOnClickListener(v -> {
             int count = Integer.parseInt(holder.binding.tvCount.getText().toString());
-            if(count <= 1){onClickListener.decrease(list.get(position).first);}
+            if(count <= 1){onClickListener.decrease(list.get(position));}
             else {
                 count--;
+                holder.addDishToCart(list.get(position), count);
                 holder.binding.tvCount.setText(Integer.toString(count));
             }
         });
@@ -99,6 +100,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             if(App.sharedManager.isItemInCart(menuItem)){
                 binding.btAdd.setVisibility(View.GONE);
                 binding.countLayout.setVisibility(View.VISIBLE);
+                binding.tvCount.setText("" + App.sharedManager.getCartList().get(menuItem.getId()));
             }
         }
 
@@ -121,14 +123,10 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             }
 
         }
-        public void addDishToCart(MenuModel menuItem){
-            App.sharedManager.saveToCart(menuItem, false);
+        public void addDishToCart(MenuModel menuItem, Integer count){
+            App.sharedManager.saveToCart(menuItem, count);
             binding.btAdd.setVisibility(View.GONE);
             binding.countLayout.setVisibility(View.VISIBLE);
-        }
-        public void deleteDishFromCart(){
-            binding.btAdd.setVisibility(View.VISIBLE);
-            binding.countLayout.setVisibility(View.GONE);
         }
     }
 }

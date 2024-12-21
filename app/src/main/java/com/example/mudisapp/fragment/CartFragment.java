@@ -17,10 +17,8 @@ import android.widget.Toast;
 
 import com.example.mudisapp.R;
 import com.example.mudisapp.adapter.CartAdapter;
-import com.example.mudisapp.adapter.FoodAdapter;
 import com.example.mudisapp.app.App;
 import com.example.mudisapp.databinding.FragmentCartBinding;
-import com.example.mudisapp.enums.MealType;
 import com.example.mudisapp.model.MenuModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -32,7 +30,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnClickListene
     public FragmentCartBinding binding;
     private AlertDialog materialDialog;
     private MenuModel currentDish;
-    private HashMap<MenuModel, Integer> list = new HashMap<>();
+    private ArrayList<MenuModel> list = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,7 +42,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnClickListene
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        list = App.sharedManager.getCartList();
+
         setAdapter();
         materialDialog = createMaterialDialog();
         applyClick();
@@ -55,7 +53,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnClickListene
 
     private void setAdapter(){
         binding.rvCart.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false));
-        binding.rvCart.setAdapter(new CartAdapter(list.keySet().stream().toList(),this, requireContext()));
+        binding.rvCart.setAdapter(new CartAdapter(list,this, requireContext()));
     }
 
     @Override
@@ -73,7 +71,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnClickListene
                 .setMessage("Do u want to delete this dish from the cart?")
                 .setPositiveButton("Yes", (d, which)->{
                     list.remove(currentDish);
-                    App.sharedManager.saveToCart(currentDish, true);
+                    App.sharedManager.saveToCart(currentDish, 0);
                     binding.rvCart.getAdapter().notifyDataSetChanged();
                 })
                 .setNegativeButton("No",(d, which)->{})

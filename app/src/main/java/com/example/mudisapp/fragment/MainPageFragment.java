@@ -64,22 +64,22 @@ public class MainPageFragment extends Fragment implements FoodAdapter.OnClickLis
 
         binding.categorySnacksContainer.setOnClickListener(v -> {
             setCategoryColor(binding.categorySnacks, binding.underlineSnacks);
-            HashMap<MenuModel, Integer> filteredList = filterMenu("SNACK");
+            ArrayList<MenuModel> filteredList = filterMenu("SNACK");
             binding.rvMenu.setAdapter(new FoodAdapter(filteredList, this, requireContext()));
         });
         binding.categoryDrinks.setOnClickListener(v -> {
             setCategoryColor(binding.categoryDrinks, binding.underlineDrinks);
-            HashMap<MenuModel, Integer> filteredList = filterMenu("DRINK");
+            ArrayList<MenuModel> filteredList = filterMenu("DRINK");
             binding.rvMenu.setAdapter(new FoodAdapter(filteredList, this, requireContext()));
         });
         binding.categoryMeals.setOnClickListener(v -> {
             setCategoryColor(binding.categoryMeals, binding.underlineMeals);
-            HashMap<MenuModel, Integer> filteredList = filterMenu("MEAL");
+            ArrayList<MenuModel> filteredList = filterMenu("MEAL");
             binding.rvMenu.setAdapter(new FoodAdapter(filteredList, this, requireContext()));
         });
 
     }
-    private void setAdapter(HashMap<MenuModel, Integer> list) {
+    private void setAdapter(List<MenuModel> list) {
         binding.rvMenu.setLayoutManager(new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false));
         binding.rvMenu.setAdapter(new FoodAdapter(list,this, requireContext()));
     }
@@ -105,11 +105,11 @@ public class MainPageFragment extends Fragment implements FoodAdapter.OnClickLis
         });
     }
 
-    private HashMap<MenuModel, Integer> filterMenu(String type){
-        HashMap<MenuModel, Integer> filteredList = new HashMap<>();
-        for(MenuModel item : firebaseDataBase.getMenuList().keySet())
+    private ArrayList<MenuModel> filterMenu(String type){
+        ArrayList<MenuModel> filteredList = new ArrayList<>();
+        for(MenuModel item : firebaseDataBase.getMenuList())
         {
-            if(item.getType().equals(type)) {filteredList.put(item, 0);}
+            if(item.getType().equals(type)) {filteredList.add(item);}
         }
         return filteredList;
     }
@@ -142,7 +142,7 @@ public class MainPageFragment extends Fragment implements FoodAdapter.OnClickLis
                 .setTitle("Delete dish?")
                 .setMessage("Do u want to delete this dish from the cart?")
                 .setPositiveButton("Yes", (d, which)->{
-                    App.sharedManager.saveToCart(currentDish, true);
+                    App.sharedManager.saveToCart(currentDish, 0);
 
                 })
                 .setNegativeButton("No",(d, which)->{})
