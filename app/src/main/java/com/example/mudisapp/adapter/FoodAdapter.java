@@ -2,6 +2,7 @@ package com.example.mudisapp.adapter;
 
 import android.content.Context;
 import android.util.Pair;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -102,6 +103,13 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
                 binding.countLayout.setVisibility(View.VISIBLE);
                 binding.tvCount.setText("" + App.sharedManager.getCartList().get(menuItem.getId()));
             }
+            int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
+            int totalMargin = dpToPx(context, 48);
+            int itemWidth = (screenWidth - totalMargin) / 3;
+
+            ViewGroup.LayoutParams params = binding.getRoot().getLayoutParams();
+            params.width = itemWidth;
+            binding.getRoot().setLayoutParams(params);
         }
 
         public void changeHeartColor(Context context, MenuModel menuItem){
@@ -127,6 +135,10 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             App.sharedManager.saveToCart(menuItem, count);
             binding.btAdd.setVisibility(View.GONE);
             binding.countLayout.setVisibility(View.VISIBLE);
+        }
+        public static int dpToPx(Context context, int dp) {
+            return (int) TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
         }
     }
 }
