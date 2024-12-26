@@ -56,12 +56,12 @@ public class MainPageFragment extends Fragment implements FoodAdapter.OnClickLis
         setView();
         applyClick();
     }
+
     public void applyClick(){
         binding.categoryAllContainer.setOnClickListener(v -> {
             setCategoryColor(binding.categoryAllContainer, binding.underlineAll);
             setAdapter(firebaseDataBase.getMenuList());
         });
-
         binding.categorySnacksContainer.setOnClickListener(v -> {
             setCategoryColor(binding.categorySnacks, binding.underlineSnacks);
             ArrayList<MenuModel> filteredList = filterMenu("SNACK");
@@ -113,10 +113,12 @@ public class MainPageFragment extends Fragment implements FoodAdapter.OnClickLis
         }
         return filteredList;
     }
+
     private void setView(){
         binding.categoryAllContainer.setTextColor(getResources().getColor(R.color.orange));
         binding.underlineAll.setBackgroundColor(getResources().getColor(R.color.orange));
     }
+
     private void setCategoryColor(TextView selectedTextView, View selectedView){
         binding.categoryAllContainer.setTextColor(getResources().getColor(R.color.grey_text_order_history));
         binding.underlineAll.setBackgroundColor(getResources().getColor(R.color.grey_text_order_history));
@@ -134,6 +136,7 @@ public class MainPageFragment extends Fragment implements FoodAdapter.OnClickLis
         selectedTextView.setTextColor(getResources().getColor(R.color.orange));
         selectedView.setBackgroundColor(getResources().getColor(R.color.orange));
     }
+
     public void showMaterialDialog(){
         materialDialog.show();
     }
@@ -143,7 +146,7 @@ public class MainPageFragment extends Fragment implements FoodAdapter.OnClickLis
                 .setMessage("Do u want to delete this dish from the cart?")
                 .setPositiveButton("Yes", (d, which)->{
                     App.sharedManager.saveToCart(currentDish, 0);
-
+                    binding.rvMenu.getAdapter().notifyDataSetChanged();
                 })
                 .setNegativeButton("No",(d, which)->{})
                 .setCancelable(false);

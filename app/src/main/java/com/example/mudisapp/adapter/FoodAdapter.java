@@ -33,11 +33,9 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         this.onClickListener = onClickListener;
         this.context = context;
     }
-    @Override
-    public int getItemCount(){
-        return list.size();
-    }
 
+    @Override
+    public int getItemCount(){return list.size();}
 
     @NonNull
     @Override
@@ -46,11 +44,9 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         return new FoodAdapter.ViewHolder(binding);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(list.get(position), context);
-
 
         holder.binding.getRoot().setOnClickListener(v -> {
             onClickListener.click(list.get(position));
@@ -58,15 +54,23 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         holder.binding.ivHeart.setOnClickListener(v -> {
             holder.changeHeartColor(context, list.get(position), true);
         });
-        holder.binding.btAdd.setOnClickListener(v -> {
+        holder.binding.tvAdd.setOnClickListener(v -> {
             holder.addDishToCart(list.get(position), 1);
         });
 
+
         holder.binding.tvPlus.setOnClickListener(v -> {
             int count = Integer.parseInt(holder.binding.tvCount.getText().toString());
-            count++;
-            holder.addDishToCart(list.get(position), count);
-            holder.binding.tvCount.setText(Integer.toString(count));
+            if(count >= 9){
+                Toast.makeText(context, "Max. quantity: 9", Toast.LENGTH_SHORT).show();
+                holder.binding.tvPlus.setEnabled(false);
+            }
+            else{
+                count++;
+                holder.addDishToCart(list.get(position), count);
+                holder.binding.tvCount.setText(Integer.toString(count));
+            }
+
         });
         holder.binding.tvMinus.setOnClickListener(v -> {
             int count = Integer.parseInt(holder.binding.tvCount.getText().toString());
@@ -76,7 +80,11 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
                 holder.addDishToCart(list.get(position), count);
                 holder.binding.tvCount.setText(Integer.toString(count));
             }
+            if(count < 9) {
+                holder.binding.tvPlus.setEnabled(true);
+            }
         });
+
     }
     public interface OnClickListener{
         void click(MenuModel menuItem);
@@ -99,10 +107,13 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             binding.tvPrice.setText(menuItem.getPrice() + "₪");
             changeHeartColor(context, menuItem);
             if(App.sharedManager.isItemInCart(menuItem)){
-                binding.btAdd.setVisibility(View.GONE);
-                binding.countLayout.setVisibility(View.VISIBLE);
+                setButtons(false);
                 binding.tvCount.setText("" + App.sharedManager.getCartList().get(menuItem.getId()));
             }
+            else{
+                setButtons(true);
+            }
+
             int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
             int totalMargin = dpToPx(context, 48);
             int itemWidth = (screenWidth - totalMargin) / 3;
@@ -131,11 +142,23 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             }
 
         }
+
         public void addDishToCart(MenuModel menuItem, Integer count){
             App.sharedManager.saveToCart(menuItem, count);
-            binding.btAdd.setVisibility(View.GONE);
-            binding.countLayout.setVisibility(View.VISIBLE);
+            setButtons(false);
         }
+
+        public void setButtons(boolean isAdd){
+            if(isAdd){
+                binding.tvAdd.setVisibility(View.VISIBLE);
+                binding.countLayout.setVisibility(View.GONE);
+            }
+            else {
+                binding.tvAdd.setVisibility(View.GONE);
+                binding.countLayout.setVisibility(View.VISIBLE);
+            }
+        }
+
         public static int dpToPx(Context context, int dp) {
             return (int) TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());

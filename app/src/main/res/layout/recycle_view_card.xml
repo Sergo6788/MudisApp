@@ -64,13 +64,13 @@
 
             <LinearLayout
                 android:id="@+id/countLayout"
-                android:layout_width="63dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="6dp"
+                android:layout_width="60dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="12dp"
                 android:background="@drawable/count_background"
                 android:orientation="horizontal"
-                android:padding="4dp"
                 android:visibility="gone"
+                android:padding="4dp"
                 android:weightSum="3">
 
                 <TextView
@@ -105,16 +105,19 @@
 
             </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btAdd"
-                android:layout_width="63dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="6dp"
+            <TextView
+                android:id="@+id/tvAdd"
+                android:layout_width="60dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="12dp"
+                android:gravity="center"
                 android:backgroundTint="@color/green_button_add"
-                android:text="Add"
-                android:textSize="8sp"
+                android:background="@drawable/button_add"
+                android:text="@string/add"
+                android:textSize="12sp"
                 android:textStyle="bold"
-                app:cornerRadius="4dp" />
+                android:textColor="@android:color/white"
+                android:padding="4dp" />
 
 
         </LinearLayout>
