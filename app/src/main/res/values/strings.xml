@@ -58,6 +58,7 @@
     <string name="all">All</string>
     <string name="add">Add</string>
     <string name="our_menu">Our Menu</string>
+    <string name="payment_processing">Payment processing</string>
 
 
 </resources>

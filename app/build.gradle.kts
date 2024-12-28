@@ -54,5 +54,6 @@ dependencies {
     implementation (libs.gson)
     implementation (libs.firebase.firestore)
     implementation (libs.glide)
+    implementation (libs.material.v120alpha03)
 
 }

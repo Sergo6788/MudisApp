@@ -41,4 +41,9 @@
     <style name="ProgressBarStyle" parent="Base.Theme.MudisApp">
         <item name="colorControlActivated">@color/blue</item>
     </style>
+    <style name="RoundedDialog" parent="Base.Theme.MudisApp">
+        <item name="android:background">@drawable/rounded_dialog</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
 </resources>
