@@ -45,17 +45,11 @@ public class SharedManager {
 
 
     public void savePaymentMethod(PaymentMethod paymentMethod) {
-        if (paymentMethod == PaymentMethod.APPLE_PAY) {
-            sharedPreferences.edit().putString("paymentMethod", "Apple Pay").apply();
-        } else if (paymentMethod == PaymentMethod.GOOGLE_PAY) {
-            sharedPreferences.edit().putString("paymentMethod", "Google Pay").apply();
-        } else if (paymentMethod == PaymentMethod.CASH) {
-            sharedPreferences.edit().putString("paymentMethod", "Cash on delivery").apply();
-        }
+      sharedPreferences.edit().putString("paymentMethod", paymentMethod.toString()).apply();
     }
 
     public String getPaymentMethod() {
-        return sharedPreferences.getString("paymentMethod", "Cash on delivery");
+        return sharedPreferences.getString("paymentMethod", "CASH");
     }
 
 
@@ -111,5 +105,8 @@ public class SharedManager {
     public boolean isItemInCart(MenuModel menuItem) {
         HashMap<String, Integer> cartItems = getCartList();
         return cartItems.get(menuItem.getId()) != null;
+    }
+    public int getAmountOfDishInCart(MenuModel menuModel){
+        return getCartList().get(menuModel.getId()) == null ? 0 : getCartList().get(menuModel.getId());
     }
 }

@@ -14,6 +14,7 @@ import com.example.mudisapp.enums.PaymentMethod;
 import com.example.mudisapp.model.OrderModel;
 
 import java.util.List;
+import java.util.Objects;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
     private List<OrderModel> list;
@@ -58,10 +59,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
             else if(orderItem.getOrderStatus() == OrderStatus.InPROCESS){binding.tvStatusOrder.setText(R.string.in_process);}
             else if(orderItem.getOrderStatus() == OrderStatus.CANCELED){binding.tvStatusOrder.setText(R.string.cancelled_order);}
 
-            if(orderItem.getPaymentMethod() == PaymentMethod.APPLE_PAY){binding.tvPaymentMethod.setText(R.string.payment_method_card);}
-            else if(orderItem.getPaymentMethod() == PaymentMethod.GOOGLE_PAY){binding.tvPaymentMethod.setText(R.string.payment_method_card);}
-            else if(orderItem.getPaymentMethod() == PaymentMethod.BANK_CARD){binding.tvPaymentMethod.setText(R.string.payment_method_card);}
-            else if(orderItem.getPaymentMethod() == PaymentMethod.CASH){binding.tvPaymentMethod.setText(R.string.payment_method_cash);}
+            if(Objects.equals(orderItem.getPaymentMethod(), PaymentMethod.APPLE_PAY.toString())){binding.tvPaymentMethod.setText(R.string.payment_method_card);}
+            else if(Objects.equals(orderItem.getPaymentMethod(), PaymentMethod.GOOGLE_PAY.toString())){binding.tvPaymentMethod.setText(R.string.payment_method_card);}
+            else if(Objects.equals(orderItem.getPaymentMethod(), PaymentMethod.BANK_CARD.toString())){binding.tvPaymentMethod.setText(R.string.payment_method_card);}
+            else if(Objects.equals(orderItem.getPaymentMethod(), PaymentMethod.CASH.toString())){binding.tvPaymentMethod.setText(R.string.payment_method_cash);}
         }
     }
 }

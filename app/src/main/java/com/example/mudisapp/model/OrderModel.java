@@ -10,15 +10,16 @@ public class OrderModel {
     private List<MenuModel> orderMenu;
     private String orderDate;
     private OrderStatus orderStatus;
-    private PaymentMethod paymentMethod;
+    private String paymentMethod;
+    private String id;
 
-    public OrderModel(List<MenuModel> orderMenu, String orderDate, OrderStatus orderStatus, PaymentMethod paymentMethod){
+    public OrderModel(List<MenuModel> orderMenu, String orderDate, String paymentMethod){
         orderMenu.forEach(menuModel -> {
             totalAmount += menuModel.getPrice();
         });
         this.orderMenu = orderMenu;
         this.orderDate = orderDate;
-        this.orderStatus = orderStatus;
+        this.orderStatus = OrderStatus.InPROCESS;
         this.paymentMethod = paymentMethod;
     }
 
@@ -35,11 +36,17 @@ public class OrderModel {
         return orderStatus;
     }
 
-    public PaymentMethod getPaymentMethod() {
+    public String getPaymentMethod() {
         return paymentMethod;
     }
 
     public int getTotalAmount() {
         return totalAmount;
     }
+
+    public String getId() {
+        return id;
+    }
+    public void setId(String id){this.id = id;}
+
 }

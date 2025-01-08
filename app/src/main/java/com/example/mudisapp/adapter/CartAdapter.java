@@ -25,7 +25,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public CartAdapter(ArrayList<MenuModel> data, CartAdapter.OnClickListener onClickListener, Context context){
         list = data;
         list.removeIf(dish -> !App.sharedManager.isItemInCart(dish));
-
         this.onClickListener = onClickListener;
         this.context = context;
     }
@@ -55,6 +54,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 count++;
                 App.sharedManager.saveToCart(list.get(position), count);
                 holder.binding.tvCount.setText(Integer.toString(count));
+
             }
 
         });
@@ -98,9 +98,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             {
                 binding.tvCount.setText("" + count);
             }
-
         }
-
     }
-
 }

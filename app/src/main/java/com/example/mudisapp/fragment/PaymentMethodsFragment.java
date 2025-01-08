@@ -35,8 +35,8 @@ public class PaymentMethodsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        applyClick();
         setupView();
+        applyClick();
     }
 
     private void applyClick(){
@@ -56,8 +56,8 @@ public class PaymentMethodsFragment extends Fragment {
 
     }
     private void setupView(){
-        if(Objects.equals(paymentMethod, "Apple Pay")) {binding.rbApplePay.setChecked(true);}
-        else if(Objects.equals(paymentMethod, "Google Pay")) {binding.rbGooglePay.setChecked(true);}
+        if(Objects.equals(paymentMethod, "APPLE_PAY")) {binding.rbApplePay.setChecked(true);}
+        else if(Objects.equals(paymentMethod, "GOOGLE_PAY")) {binding.rbGooglePay.setChecked(true);}
         else{binding.rbCash.setChecked(true);}
     }
 

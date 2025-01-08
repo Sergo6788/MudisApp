@@ -18,6 +18,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -30,12 +31,16 @@ import com.example.mudisapp.app.App;
 import com.example.mudisapp.databinding.FragmentCartBinding;
 import com.example.mudisapp.databinding.PaymentDialogBinding;
 import com.example.mudisapp.model.MenuModel;
+import com.example.mudisapp.model.OrderModel;
 import com.example.mudisapp.repository.FirebaseRepository;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 
@@ -46,6 +51,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnClickListene
     private FirebaseRepository firebaseDataBase;
     private ArrayList<MenuModel> list = new ArrayList<>();
     private AlertDialog dialog;
+    private final SimpleDateFormat timeFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault());
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,6 +79,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnClickListene
     private void setAdapter(){
         binding.rvCart.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false));
         binding.rvCart.setAdapter(new CartAdapter(list,this, requireContext()));
+        changeTotalAmount();
     }
 
     private void setObservers(){
@@ -81,6 +88,13 @@ public class CartFragment extends Fragment implements CartAdapter.OnClickListene
                 list = firebaseDataBase.getMenuList();
                 setAdapter();
                 firebaseDataBase.isTaskReady.setValue(false);
+            }
+        });
+        firebaseDataBase.isOrderCreated.observe(getViewLifecycleOwner(), data -> {
+            if(data){
+                App.sharedManager.cleanCart();
+                binding.rvCart.setAdapter(new CartAdapter(list, this, requireContext()));
+                firebaseDataBase.isOrderCreated.setValue(false);
             }
         });
     }
@@ -103,6 +117,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnClickListene
                     list.remove(currentDish);
                     App.sharedManager.saveToCart(currentDish, 0);
                     binding.rvCart.getAdapter().notifyDataSetChanged();
+                    changeTotalAmount();
                 })
                 .setNegativeButton("No",(d, which)->{})
                 .setCancelable(false);
@@ -114,7 +129,6 @@ public class CartFragment extends Fragment implements CartAdapter.OnClickListene
         createOrder();
     }
     private void showAnimation() {
-
         if (dialog != null && dialog.isShowing()) {
             return;
         }
@@ -164,9 +178,26 @@ public class CartFragment extends Fragment implements CartAdapter.OnClickListene
 
         dialog.show();
     }
-    private void createOrder(){
-        App.sharedManager.cleanCart();
-        binding.rvCart.setAdapter(new CartAdapter(list, this, requireContext()));
+    private void changeTotalAmount(){
+        int amount = 0;
+        for(MenuModel menuModel : list){
+            for(int i = 0; i < App.sharedManager.getAmountOfDishInCart(menuModel); i++){
+                amount += menuModel.getPrice();
+            }
+        }
+        binding.tvPrice.setText(amount + " ₪");
     }
+    private void createOrder(){
+        ArrayList<MenuModel> localList = new ArrayList<>();
+        for(int index = 0; index < list.size(); index++) {
+            for(int i = 0; i < App.sharedManager.getAmountOfDishInCart(list.get(index)) ; i++){
+                localList.add(list.get(index));
+            }
+        }
+        OrderModel order = new OrderModel(localList, timeFormat.format(new Date()), App.sharedManager.getPaymentMethod());
+        firebaseDataBase.createOrder(order);
+        binding.tvPrice.setText("0₪");
+    }
+
 
 }
