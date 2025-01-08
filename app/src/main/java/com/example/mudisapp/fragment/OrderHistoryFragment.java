@@ -36,7 +36,6 @@ public class OrderHistoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentOrderHistoryBinding.inflate(inflater);
-        ((DrawerActivity)requireActivity()).hideDrawer(true);
         return binding.getRoot();
 
     }

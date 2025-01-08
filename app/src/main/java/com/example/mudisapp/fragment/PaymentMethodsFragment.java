@@ -28,7 +28,6 @@ public class PaymentMethodsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentPaymentMethodsBinding.inflate(inflater);
-        ((DrawerActivity)requireActivity()).hideDrawer(true);
         return binding.getRoot();
     }
 

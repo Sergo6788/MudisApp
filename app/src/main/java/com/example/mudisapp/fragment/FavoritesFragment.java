@@ -38,7 +38,6 @@ public class FavoritesFragment extends Fragment implements FoodAdapter.OnClickLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentFavoritesBinding.inflate(inflater);
-        ((DrawerActivity)requireActivity()).hideDrawer(true);
         return binding.getRoot();
 
     }

@@ -30,7 +30,6 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         binding = FragmentProfileBinding.inflate(inflater);
-        ((DrawerActivity)requireActivity()).hideDrawer(false);
         materialDialog = createMaterialDialog();
         return binding.getRoot();
     }

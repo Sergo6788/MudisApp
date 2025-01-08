@@ -25,26 +25,9 @@ public class DrawerActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_main_fragment);
         navController = navHostFragment.getNavController();
-        NavigationUI.setupWithNavController(binding.navView,navController);
-        applyClick();
+        NavigationUI.setupWithNavController(binding.bottomNavigation,navController);
     }
 
-    private void applyClick()
-    {
-        binding.btnDrawer.setOnClickListener(v -> {
-            openDriver();
-        });
 
-    }
-    public void hideDrawer(boolean isDrawerNeedHide){
-        if(isDrawerNeedHide)
-            binding.btnDrawer.setVisibility(View.GONE);
-        else
-            binding.btnDrawer.setVisibility(View.VISIBLE);
-    }
-
-    private void openDriver(){
-        binding.getRoot().openDrawer(GravityCompat.START);
-    }
 }
 

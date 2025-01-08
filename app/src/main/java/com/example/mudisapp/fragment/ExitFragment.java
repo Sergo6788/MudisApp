@@ -22,7 +22,6 @@ public class ExitFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((DrawerActivity)requireActivity()).hideDrawer(true);
         requireContext().startActivity(new Intent(requireActivity(), MainActivity.class));
         App.sharedManager.userLogout();
         requireActivity().finish();
