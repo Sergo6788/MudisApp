@@ -6,17 +6,22 @@ import android.widget.Toast;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.mudisapp.app.App;
 import com.example.mudisapp.model.MenuModel;
 import com.example.mudisapp.model.OrderModel;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firestore.v1.StructuredQuery;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class FirebaseRepository extends ViewModel {
     private FirebaseFirestore dataBase = FirebaseFirestore.getInstance();
     private ArrayList<MenuModel> menuList = new ArrayList<>();
+    private ArrayList<OrderModel> orderList = new ArrayList<>();
     public MutableLiveData<Boolean> isTaskReady = new MutableLiveData<>(false);
     public MutableLiveData<Boolean> isOrderCreated = new MutableLiveData<>(false);
 
@@ -66,6 +71,28 @@ public class FirebaseRepository extends ViewModel {
                     Log.d("ERROR", exception.getMessage());
                 });
 
+
+    }
+    public void getOrderHistory(){
+        orderList.clear();
+        dataBase.collection("Orders").get()
+                .addOnSuccessListener(task -> {
+                    for (DocumentSnapshot documentSnapshot : task.getDocuments()) {
+                        OrderModel data = documentSnapshot.toObject(OrderModel.class);
+                        data.setId(documentSnapshot.getId());
+                        orderList.add(data);
+                    }
+                    isTaskReady.setValue(true);
+                })
+                .addOnFailureListener(error -> {
+                    Log.d("ERROR", error.getMessage());
+                });
+    }
+
+    public ArrayList<OrderModel> getOrderList(){
+        isTaskReady.setValue(false);
+        orderList.removeIf(it -> !Objects.equals(it.getUid(), App.sharedManager.getUID()));
+        return orderList;
     }
 
 }

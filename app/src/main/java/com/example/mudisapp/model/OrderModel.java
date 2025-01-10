@@ -12,8 +12,9 @@ public class OrderModel {
     private OrderStatus orderStatus;
     private String paymentMethod;
     private String id;
+    private String uid;
 
-    public OrderModel(List<MenuModel> orderMenu, String orderDate, String paymentMethod){
+    public OrderModel(List<MenuModel> orderMenu, String orderDate, String paymentMethod, String uid){
         orderMenu.forEach(menuModel -> {
             totalAmount += menuModel.getPrice();
         });
@@ -21,6 +22,10 @@ public class OrderModel {
         this.orderDate = orderDate;
         this.orderStatus = OrderStatus.InPROCESS;
         this.paymentMethod = paymentMethod;
+        this.uid = uid;
+    }
+    public OrderModel(){
+
     }
 
 
@@ -42,6 +47,10 @@ public class OrderModel {
 
     public int getTotalAmount() {
         return totalAmount;
+    }
+
+    public String getUid() {
+        return uid;
     }
 
     public String getId() {

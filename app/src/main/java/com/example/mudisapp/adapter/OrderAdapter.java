@@ -32,7 +32,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull OrderAdapter.ViewHolder holder, int position) {
-        holder.bind(list.get(position));
+        holder.bind(list.get(Math.abs((position + 1) - list.size())));
     }
 
     @Override

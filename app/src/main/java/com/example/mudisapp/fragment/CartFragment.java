@@ -194,7 +194,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnClickListene
                 localList.add(list.get(index));
             }
         }
-        OrderModel order = new OrderModel(localList, timeFormat.format(new Date()), App.sharedManager.getPaymentMethod());
+        OrderModel order = new OrderModel(localList, timeFormat.format(new Date()), App.sharedManager.getPaymentMethod(), App.sharedManager.getUID());
         firebaseDataBase.createOrder(order);
         binding.tvPrice.setText("0₪");
     }
