@@ -27,7 +27,9 @@ import com.example.mudisapp.app.App;
 import com.example.mudisapp.databinding.FragmentLoginBinding;
 import com.example.mudisapp.model.FireStoreUser;
 
+import com.example.mudisapp.repository.FirebaseRepository;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.net.PasswordAuthentication;
@@ -36,9 +38,9 @@ import java.net.PasswordAuthentication;
 public class LoginFragment extends Fragment {
     private FragmentLoginBinding binding;
     private boolean isPasswordVisible = true;
-    private FirebaseAuth auth;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private final FirebaseFirestore dataBase = FirebaseFirestore.getInstance();
-
+    private FirebaseRepository firebaseRepository;
 
 
     @Override
@@ -52,94 +54,95 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         applyClick();
     }
 
-    private void applyClick()
-    {
+    private void applyClick() {
         binding.tvButtonSignUp.setOnClickListener(v -> {
             findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment);
         });
+
         binding.btSignIn.setOnClickListener(v -> {
             checkEnterData();
         });
         binding.tvButtonForgot.setOnClickListener(v -> {
 
         });
-       binding.eyePassword.setOnClickListener(v -> {
+
+        binding.eyePassword.setOnClickListener(v -> {
 
             if (isPasswordVisible) {
                 binding.eyePassword.setImageDrawable(requireContext().getDrawable(R.drawable.eye_opened_img_svg));
 
                 binding.etPassword.setTransformationMethod(null);
-           }
-
-            else {
-               binding.eyePassword.setImageDrawable(requireContext().getDrawable(R.drawable.eye_closed_img_svg));
+            } else {
+                binding.eyePassword.setImageDrawable(requireContext().getDrawable(R.drawable.eye_closed_img_svg));
 
                 binding.etPassword.setTransformationMethod(new PasswordTransformationMethod());
-           }
-            isPasswordVisible=!
-                   isPasswordVisible;
-
-
+            }
+            isPasswordVisible = !
+                    isPasswordVisible;
         });
-
-
 
     }
 
-
     private void checkEnterData() {
-        if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.getText()).matches())
-        {
-            Toast.makeText(requireContext(),requireContext().getResources().getString(R.string.email_incorrect), Toast.LENGTH_SHORT).show();
-        }
-        else if (binding.etPassword.getText().toString().length() < 6 || binding.etPassword.getText().toString().contains(" "))
-        {
-
+        if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.getText()).matches()) {
+            Toast.makeText(requireContext(), requireContext().getResources().getString(R.string.email_incorrect), Toast.LENGTH_SHORT).show();
+        } else if (binding.etPassword.getText().toString().length() < 6 || binding.etPassword.getText().toString().contains(" ")) {
             Toast.makeText(requireContext(), requireContext().getResources().getString(R.string.password_length_must_be_more_than_6_characters_and_without_space), Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
+        } else {
             allCorrect();
         }
     }
 
-    private void allCorrect()
-    {
-        auth=FirebaseAuth.getInstance();
-        auth.signInWithEmailAndPassword(binding.etEmail.getText().toString(), binding.etPassword.getText().toString()).addOnCompleteListener(requireActivity(), task -> {
+
+    private void allCorrect() {
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.signInWithEmailAndPassword(binding.etEmail.getText().toString(), binding.etPassword.getText().toString()).addOnCompleteListener(requireActivity(), task -> {
             binding.btSignIn.setEnabled(false);
-            if(task.isSuccessful()) {
-                createUser();
+            if (task.isSuccessful()){
+                if(mAuth.getCurrentUser().isEmailVerified()){
+                    createUser();
+                }
+                else {
+                    Toast.makeText(requireContext(), "Please verify your email" , Toast.LENGTH_LONG).show();
+                }
+                binding.btSignIn.setEnabled(true);
+            } else {
+                binding.btSignIn.setEnabled(true);
+                Toast.makeText(requireContext(), "Login failed: " + (task.getException() != null ? task.getException().getMessage() : "Unknown error"), Toast.LENGTH_SHORT).show();
             }
-        }).addOnFailureListener(requireActivity(),error->{
+        }).addOnFailureListener(requireActivity(), error -> {
             binding.btSignIn.setEnabled(true);
-            Toast.makeText(requireContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(requireContext(), "Error:" + error.getMessage(), Toast.LENGTH_LONG).show();
         });
 
     }
 
-    private void createUser(){
-        FireStoreUser user = new FireStoreUser(false);
-        String uid = auth.getCurrentUser().getUid();
+    private void createUser() {
+        FireStoreUser user = new FireStoreUser();
+        String uid = mAuth.getCurrentUser().getUid();
+        String email = mAuth.getCurrentUser().getEmail();
+
+        user.setUid(uid);
+        user.setEmail(email);
+
         dataBase.collection("Users").document(uid).set(user)
                 .addOnCompleteListener(task -> {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         requireContext().startActivity(new Intent(requireActivity(), DrawerActivity.class));
                         requireActivity().finish();
                         App.sharedManager.userAuthorize();
                         App.sharedManager.saveUID(uid);
-
-                    }
-                    else{
+                    } else {
                         binding.btSignIn.setEnabled(true);
-                        Toast.makeText(requireContext(), requireContext().getResources().getString(R.string.bad_internet_connection_please_try_again_later), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), "Failed to save user data. Please try again", Toast.LENGTH_SHORT).show();
                     }
+                })
+                .addOnFailureListener(e -> {
+                    binding.btSignIn.setEnabled(true);
+                    Toast.makeText(requireContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
-
     }
-
 }

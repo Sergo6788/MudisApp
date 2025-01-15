@@ -44,8 +44,6 @@ public class RegisterFragment extends Fragment {
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentRegisterBinding.inflate(inflater);
@@ -123,13 +121,15 @@ public class RegisterFragment extends Fragment {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity(), task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(requireContext(), "User registration successfully", Toast.LENGTH_SHORT).show();
-                        Navigation.findNavController(binding.getRoot()).popBackStack();
+                        if (mAuth.getCurrentUser() != null) {
+                            mAuth.getCurrentUser().sendEmailVerification();
+                        }
+                        Toast.makeText(requireContext(), "Registration successful! Verification email sent", Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(requireActivity(), R.id.nav_main_fragment).popBackStack();
                     } else {
                         binding.btSignUp.setEnabled(true);
-                        Toast.makeText(requireContext(), "User registration failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), requireContext().getResources().getString(R.string.user_registration_failed), Toast.LENGTH_SHORT).show();
                     }
-
                 });
     }
 

@@ -59,6 +59,8 @@
     <string name="add">Add</string>
     <string name="our_menu">Our Menu</string>
     <string name="payment_processing">Payment processing</string>
+    <string name="user_registration_successfully_please_verify_your_email">User registration successfully\nPlease verify your email</string>
+    <string name="user_registration_failed">User registration failed</string>
 
 
 </resources>

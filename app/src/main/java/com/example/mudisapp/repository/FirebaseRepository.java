@@ -9,8 +9,12 @@ import androidx.lifecycle.ViewModel;
 import com.example.mudisapp.app.App;
 import com.example.mudisapp.model.MenuModel;
 import com.example.mudisapp.model.OrderModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firestore.v1.StructuredAggregationQuery;
 import com.google.firestore.v1.StructuredQuery;
 
 import java.util.ArrayList;
@@ -41,28 +45,28 @@ public class FirebaseRepository extends ViewModel {
                     Log.d("ERROR", error.getMessage());
                 });
     }
-    public ArrayList<MenuModel> getMenuList(){
+
+    public ArrayList<MenuModel> getMenuList() {
         isTaskReady.setValue(false);
         return menuList;
     }
 
-    public void createOrder(OrderModel order){
+    public void createOrder(OrderModel order) {
         AtomicInteger count = new AtomicInteger(1);
         dataBase.collection("Orders").get()
                 .addOnCompleteListener(task -> {
-                    if(task.isSuccessful()) {
-                        for(DocumentSnapshot snapshot : task.getResult().getDocuments()){
+                    if (task.isSuccessful()) {
+                        for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
                             count.getAndIncrement();
                         }
                         order.setId("Order" + count);
                         dataBase.collection("Orders").document(order.getId()).set(order)
                                 .addOnCompleteListener(task1 -> {
-                                    if(task1.isSuccessful()){
+                                    if (task1.isSuccessful()) {
                                         isOrderCreated.setValue(true);
                                     }
                                 });
-                    }
-                    else{
+                    } else {
                         Log.d("ERROR", task.getException().getMessage());
                     }
 
@@ -73,7 +77,8 @@ public class FirebaseRepository extends ViewModel {
 
 
     }
-    public void getOrderHistory(){
+
+    public void getOrderHistory() {
         orderList.clear();
         dataBase.collection("Orders").get()
                 .addOnSuccessListener(task -> {
@@ -89,10 +94,14 @@ public class FirebaseRepository extends ViewModel {
                 });
     }
 
-    public ArrayList<OrderModel> getOrderList(){
+    public ArrayList<OrderModel> getOrderList() {
         isTaskReady.setValue(false);
         orderList.removeIf(it -> !Objects.equals(it.getUid(), App.sharedManager.getUID()));
         return orderList;
     }
 
 }
+
+
+
+

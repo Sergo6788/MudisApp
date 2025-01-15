@@ -18,6 +18,7 @@ import com.example.mudisapp.R;
 import com.example.mudisapp.activity.DrawerActivity;
 import com.example.mudisapp.databinding.FragmentProfileBinding;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class ProfileFragment extends Fragment {
@@ -64,6 +65,7 @@ public class ProfileFragment extends Fragment {
                 .setMessage("Are you sure you want to log out?")
                 .setPositiveButton("Yes", (d, which)->{
                     findNavController(requireView()).navigate(R.id.action_profileFragment_to_exitFragment);
+                    FirebaseAuth.getInstance().signOut();
                 })
                 .setNegativeButton("No",(d, which)->{})
                 .setCancelable(false);
