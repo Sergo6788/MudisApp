@@ -16,15 +16,18 @@ import android.widget.Toast;
 
 import com.example.mudisapp.R;
 import com.example.mudisapp.activity.DrawerActivity;
+import com.example.mudisapp.app.App;
 import com.example.mudisapp.databinding.FragmentProfileBinding;
+import com.example.mudisapp.model.FireStoreUser;
+import com.example.mudisapp.shared.SharedManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class ProfileFragment extends Fragment {
     public FragmentProfileBinding binding;
     private AlertDialog materialDialog;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,6 +41,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getUserName();
         applyClick();
     }
 
@@ -70,6 +74,15 @@ public class ProfileFragment extends Fragment {
                 .setNegativeButton("No",(d, which)->{})
                 .setCancelable(false);
         return dialog.create();
+    }
+
+    private void getUserName(){
+        FirebaseFirestore.getInstance().collection("Users").document(App.sharedManager.getUID()).get()
+                .addOnCompleteListener(task -> {
+                   if (task.isSuccessful()){
+                       binding.tvYourName.setText(task.getResult().toObject(FireStoreUser.class).getNickName());
+                   }
+                });
     }
 
 }

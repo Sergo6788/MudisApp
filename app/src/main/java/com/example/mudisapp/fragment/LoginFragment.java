@@ -13,12 +13,16 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.text.InputType;
+import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.mudisapp.R;
@@ -28,6 +32,7 @@ import com.example.mudisapp.databinding.FragmentLoginBinding;
 import com.example.mudisapp.model.FireStoreUser;
 
 import com.example.mudisapp.repository.FirebaseRepository;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -66,7 +71,7 @@ public class LoginFragment extends Fragment {
             checkEnterData();
         });
         binding.tvButtonForgot.setOnClickListener(v -> {
-
+            showForgotPasswordDialog();
         });
 
         binding.eyePassword.setOnClickListener(v -> {
@@ -127,6 +132,7 @@ public class LoginFragment extends Fragment {
 
         user.setUid(uid);
         user.setEmail(email);
+        user.setNickName(getFirstUserName(email));
 
         dataBase.collection("Users").document(uid).set(user)
                 .addOnCompleteListener(task -> {
@@ -145,4 +151,69 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(requireContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
+
+    private void showForgotPasswordDialog() {
+        FrameLayout container = new FrameLayout(requireContext());
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        params.setMargins(
+                (int) (24 * getResources().getDisplayMetrics().density), // left и right
+                (int) (16 * getResources().getDisplayMetrics().density),  // top
+                (int) (24 * getResources().getDisplayMetrics().density), // right
+                (int) (4 * getResources().getDisplayMetrics().density)   // bottom
+        );
+
+        EditText emailEditText = new EditText(requireContext());
+        emailEditText.setLayoutParams(params);
+        emailEditText.setPaddingRelative(16, 16, 16, 16);
+        emailEditText.setBackgroundResource(R.drawable.edit_text_background);
+        emailEditText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        emailEditText.setHint("Enter your email");
+        container.addView(emailEditText);
+
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Forgot Password")
+                .setMessage("Please enter your registered email to reset your password.")
+                .setView(container)
+                .setPositiveButton("Send", (dialog, which) -> {
+                    String email = emailEditText.getText().toString().trim();
+                    if (TextUtils.isEmpty(email)) {
+                        Toast.makeText(requireContext(), "Email cannot be empty", Toast.LENGTH_SHORT).show();
+                    } else {
+                        sendPasswordResetEmail(email);
+                    }
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .setCancelable(false)
+                .show();
+
+    }
+
+    private void sendPasswordResetEmail(String email) {
+        System.out.println(email);
+        mAuth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(requireContext(), "Reset email sent successfully to " + email, Toast.LENGTH_SHORT).show();
+                    } else {
+                        String errorMessage = task.getException() != null ? task.getException().getMessage() : "Unknown error occurred";
+                        Toast.makeText(requireContext(), "Failed to send reset email: " + errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private String getFirstUserName(String email){
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for(char letter : email.toCharArray()){
+            if(letter == '@'){
+                break;
+            }
+            stringBuilder.append(letter);
+        }
+        return  stringBuilder.toString();
+    }
+
 }

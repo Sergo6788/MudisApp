@@ -114,10 +114,11 @@
         android:id="@+id/tvButtonForgot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="8dp"
         android:gravity="center_horizontal"
         android:text="@string/forgot_password"
         android:textSize="16sp"
+        android:textColor="@color/main_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btSignInCardView" />

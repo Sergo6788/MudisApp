@@ -4,6 +4,7 @@ public class FireStoreUser {
     private boolean isAdmin = false;
     private String uid;
     private String email;
+    private String nickName;
 
     public FireStoreUser(){
 
@@ -21,6 +22,11 @@ public class FireStoreUser {
     public void setIsAdmin(boolean value){
         this.isAdmin = value;
     }
+
+    public String getNickName(){
+        return nickName;
+    }
+    public void setNickName(String nickName){this.nickName = nickName;}
 }
 
 
