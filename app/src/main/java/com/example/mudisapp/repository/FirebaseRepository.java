@@ -60,6 +60,7 @@ public class FirebaseRepository extends ViewModel {
                             count.getAndIncrement();
                         }
                         order.setId("Order" + count);
+                        order.setNumber(count.get());
                         dataBase.collection("Orders").document(order.getId()).set(order)
                                 .addOnCompleteListener(task1 -> {
                                     if (task1.isSuccessful()) {

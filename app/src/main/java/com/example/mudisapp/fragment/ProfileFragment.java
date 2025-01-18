@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class ProfileFragment extends Fragment {
     public FragmentProfileBinding binding;
     private AlertDialog materialDialog;
+    private String currentName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +60,26 @@ public class ProfileFragment extends Fragment {
         binding.logOutLayout.setOnClickListener(v -> {
             showMaterialDialog();
         });
+        binding.ivPencil.setOnClickListener(v -> {
+
+            if(binding.etYourName.isEnabled()){
+                binding.etYourName.setEnabled(false);
+                binding.etYourName.clearFocus();
+                binding.ivPencil.setImageDrawable(requireContext().getDrawable(R.drawable.baseline_edit_24));
+                if(!(binding.etYourName.getText().toString().equals(currentName) || binding.etYourName.getText().toString().trim().isEmpty())){
+                    setNewName(binding.etYourName.getText().toString());
+                }
+                else{
+                    binding.etYourName.setText(currentName);
+                }
+            }
+            else {
+                binding.etYourName.setEnabled(true);
+                binding.etYourName.requestFocus();
+                binding.ivPencil.setImageDrawable(requireContext().getDrawable(R.drawable.baseline_done_24));
+            }
+
+        });
 
     }
     public void showMaterialDialog(){
@@ -80,8 +102,21 @@ public class ProfileFragment extends Fragment {
         FirebaseFirestore.getInstance().collection("Users").document(App.sharedManager.getUID()).get()
                 .addOnCompleteListener(task -> {
                    if (task.isSuccessful()){
-                       binding.tvYourName.setText(task.getResult().toObject(FireStoreUser.class).getNickName());
+                       binding.etYourName.setText(task.getResult().toObject(FireStoreUser.class).getNickName());
+                       currentName = task.getResult().toObject(FireStoreUser.class).getNickName();
                    }
+                });
+    }
+    private void setNewName(String newName){
+        FirebaseFirestore.getInstance().collection("Users").document(App.sharedManager.getUID()).update("nickName", newName.trim())
+                .addOnCompleteListener(task -> {
+                    if(!task.isSuccessful()){
+                        Log.d("ERROR:", task.getException().getMessage());
+                        Toast.makeText(requireContext(), "Setting new nickname has failed", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        currentName = newName;
+                    }
                 });
     }
 

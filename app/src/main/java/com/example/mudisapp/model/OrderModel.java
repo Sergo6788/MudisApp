@@ -13,6 +13,7 @@ public class OrderModel {
     private String paymentMethod;
     private String id;
     private String uid;
+    private int number;
 
     public OrderModel(List<MenuModel> orderMenu, String orderDate, String paymentMethod, String uid){
         orderMenu.forEach(menuModel -> {
@@ -58,4 +59,6 @@ public class OrderModel {
     }
     public void setId(String id){this.id = id;}
 
+    public int getNumber() {return number;}
+    public void setNumber(int number) {this.number = number;}
 }
