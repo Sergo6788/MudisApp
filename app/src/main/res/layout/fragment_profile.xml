@@ -295,6 +295,25 @@
                     android:textSize="20sp" />
 
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivTelegram"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/telegram_logo"
+                android:layout_gravity="center"/>
+            <View
+                android:layout_width="16dp"
+                android:layout_height="match_parent"/>
+
+            <ImageView
+                android:id="@+id/ivWhatsapp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/whatsapp_logo"
+                android:layout_gravity="center"/>
+
         </LinearLayout>
     </LinearLayout>
 

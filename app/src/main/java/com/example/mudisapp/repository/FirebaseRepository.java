@@ -76,7 +76,6 @@ public class FirebaseRepository extends ViewModel {
                     Log.d("ERROR", exception.getMessage());
                 });
 
-
     }
 
     public void getOrderHistory() {
@@ -99,6 +98,11 @@ public class FirebaseRepository extends ViewModel {
         isTaskReady.setValue(false);
         orderList.removeIf(it -> !Objects.equals(it.getUid(), App.sharedManager.getUID()));
         return orderList;
+    }
+
+
+    public void uploadImage(String url){
+        
     }
 
 }

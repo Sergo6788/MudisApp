@@ -22,6 +22,7 @@ public class MenuModel {
     private int price;
     private String type;
     private String id;
+    private boolean ready;
 
     public MenuModel(String id, String image, String name, int price, MealType type){
         this.id = id;
@@ -50,9 +51,12 @@ public class MenuModel {
         return image;
     }
     public String getType(){return type;}
-    public String getId(){return id;}
 
+    public String getId(){return id;}
     public void setId(String id){this.id = id;}
+
+    public boolean getReady(){return ready;}
+    public void setReady(boolean ready){this.ready = ready;}
 
 
 }

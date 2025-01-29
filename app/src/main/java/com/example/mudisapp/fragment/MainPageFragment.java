@@ -80,8 +80,10 @@ public class MainPageFragment extends Fragment implements FoodAdapter.OnClickLis
 
     }
     private void setAdapter(List<MenuModel> list) {
+        var filteredList = list;
+        filteredList.removeIf(it -> !it.getReady());
         binding.rvMenu.setLayoutManager(new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false));
-        binding.rvMenu.setAdapter(new FoodAdapter(list,this, requireContext()));
+        binding.rvMenu.setAdapter(new FoodAdapter(filteredList,this, requireContext()));
     }
 
     @Override

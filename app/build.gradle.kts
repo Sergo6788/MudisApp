@@ -30,8 +30,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures{
         viewBinding = true;
@@ -55,5 +55,11 @@ dependencies {
     implementation (libs.firebase.firestore)
     implementation (libs.glide)
     implementation (libs.material.v120alpha03)
+    implementation(libs.retrofit)
+    implementation(libs.okhttp)
+    implementation(libs.adapter.rxjava2)
+    implementation(libs.rxjava)
+    implementation (libs.rxandroid)
+    implementation(libs.converter.gson)
 
 }

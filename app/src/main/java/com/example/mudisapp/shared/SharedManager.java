@@ -99,6 +99,7 @@ public class SharedManager {
     public HashMap<String, Integer> getCartList() {
         String json = sharedPreferences.getString("listCart", null);
         Type listType = new TypeToken<HashMap<String, Integer>>() {}.getType();
+
         return json == null ? new HashMap<>() : gson.fromJson(json, listType);
     }
     

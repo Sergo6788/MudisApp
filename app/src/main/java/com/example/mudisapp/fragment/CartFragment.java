@@ -77,6 +77,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnClickListene
     }
 
     private void setAdapter(){
+        list.removeIf(it -> !it.getReady());
         binding.rvCart.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false));
         binding.rvCart.setAdapter(new CartAdapter(list,this, requireContext()));
         changeTotalAmount();

@@ -2,6 +2,8 @@ package com.example.mudisapp.fragment;
 
 import static androidx.navigation.Navigation.findNavController;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -48,6 +50,9 @@ public class ProfileFragment extends Fragment {
     }
 
     private void applyClick(){
+        binding.ivAvatar.setOnClickListener(v -> {
+            takeImage();
+        });
         binding.myOrderHistoryLayout.setOnClickListener(v -> {
             findNavController(v).navigate(R.id.action_profileFragment_to_orderHistoryFragment);
         });
@@ -59,6 +64,12 @@ public class ProfileFragment extends Fragment {
         });
         binding.logOutLayout.setOnClickListener(v -> {
             showMaterialDialog();
+        });
+        binding.ivTelegram.setOnClickListener(v -> {
+            requireActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/xandea1")));
+        });
+        binding.ivWhatsapp.setOnClickListener(v -> {
+            requireActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/qr/UQWPZNCFZZ5FE1?autoload=1&app_absent=0")));
         });
         binding.ivPencil.setOnClickListener(v -> {
 
@@ -78,7 +89,6 @@ public class ProfileFragment extends Fragment {
                 binding.etYourName.requestFocus();
                 binding.ivPencil.setImageDrawable(requireContext().getDrawable(R.drawable.baseline_done_24));
             }
-
         });
 
     }
@@ -118,6 +128,13 @@ public class ProfileFragment extends Fragment {
                         currentName = newName;
                     }
                 });
+    }
+    private void takeImage(){
+
+    }
+
+    private void sendImageToImgBB(){
+
     }
 
 }
