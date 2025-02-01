@@ -1,7 +1,6 @@
 package com.example.mudisapp.model;
 
 import com.example.mudisapp.enums.OrderStatus;
-import com.example.mudisapp.enums.PaymentMethod;
 
 import java.util.List;
 

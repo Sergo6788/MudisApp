@@ -2,16 +2,12 @@ package com.example.mudisapp.fragment;
 
 import static androidx.navigation.Navigation.findNavController;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 
 import android.text.InputType;
 import android.text.TextUtils;
@@ -22,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.mudisapp.R;
@@ -34,10 +29,7 @@ import com.example.mudisapp.model.FireStoreUser;
 import com.example.mudisapp.repository.FirebaseRepository;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.net.PasswordAuthentication;
 
 
 public class LoginFragment extends Fragment {
@@ -111,12 +103,12 @@ public class LoginFragment extends Fragment {
                     createUser();
                 }
                 else {
-                    Toast.makeText(requireContext(), "Please verify your email" , Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireContext(), R.string.please_verify_your_email , Toast.LENGTH_LONG).show();
                 }
                 binding.btSignIn.setEnabled(true);
             } else {
                 binding.btSignIn.setEnabled(true);
-                Toast.makeText(requireContext(), "Login failed: " + (task.getException() != null ? task.getException().getMessage() : "Unknown error"), Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), getString(R.string.login_failed) + (task.getException() != null ? task.getException().getMessage() : "Unknown error"), Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(requireActivity(), error -> {
             binding.btSignIn.setEnabled(true);
@@ -143,7 +135,7 @@ public class LoginFragment extends Fragment {
                         App.sharedManager.saveUID(uid);
                     } else {
                         binding.btSignIn.setEnabled(true);
-                        Toast.makeText(requireContext(), "Failed to save user data. Please try again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), R.string.failed_to_save_user_data_please_try_again, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(e -> {
@@ -175,12 +167,12 @@ public class LoginFragment extends Fragment {
 
         new MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Forgot Password")
-                .setMessage("Please enter your registered email to reset your password.")
+                .setMessage(R.string.please_enter_your_registered_email_to_reset_your_password)
                 .setView(container)
                 .setPositiveButton("Send", (dialog, which) -> {
                     String email = emailEditText.getText().toString().trim();
                     if (TextUtils.isEmpty(email)) {
-                        Toast.makeText(requireContext(), "Email cannot be empty", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), R.string.email_cannot_be_empty, Toast.LENGTH_SHORT).show();
                     } else {
                         sendPasswordResetEmail(email);
                     }
@@ -192,11 +184,10 @@ public class LoginFragment extends Fragment {
     }
 
     private void sendPasswordResetEmail(String email) {
-        System.out.println(email);
         mAuth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(requireContext(), "Reset email sent successfully to " + email, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), getString(R.string.reset_email_sent_successfully_to) + email, Toast.LENGTH_SHORT).show();
                     } else {
                         String errorMessage = task.getException() != null ? task.getException().getMessage() : "Unknown error occurred";
                         Toast.makeText(requireContext(), "Failed to send reset email: " + errorMessage, Toast.LENGTH_SHORT).show();

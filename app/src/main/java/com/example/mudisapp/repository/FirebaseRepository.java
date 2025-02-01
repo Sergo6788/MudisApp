@@ -1,7 +1,6 @@
 package com.example.mudisapp.repository;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -9,16 +8,10 @@ import androidx.lifecycle.ViewModel;
 import com.example.mudisapp.app.App;
 import com.example.mudisapp.model.MenuModel;
 import com.example.mudisapp.model.OrderModel;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidUserException;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firestore.v1.StructuredAggregationQuery;
-import com.google.firestore.v1.StructuredQuery;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 

@@ -1,10 +1,7 @@
 package com.example.mudisapp.fragment;
 
-import static androidx.core.content.ContentProviderCompat.requireContext;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,23 +12,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.mudisapp.activity.DrawerActivity;
-import com.example.mudisapp.adapter.CartAdapter;
 import com.example.mudisapp.adapter.OrderAdapter;
-import com.example.mudisapp.app.App;
 import com.example.mudisapp.databinding.FragmentOrderHistoryBinding;
-import com.example.mudisapp.databinding.FragmentProfileBinding;
-import com.example.mudisapp.enums.MealType;
-import com.example.mudisapp.enums.OrderStatus;
-import com.example.mudisapp.enums.PaymentMethod;
-import com.example.mudisapp.model.MenuModel;
 import com.example.mudisapp.model.OrderModel;
 import com.example.mudisapp.repository.FirebaseRepository;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class OrderHistoryFragment extends Fragment {
     public FragmentOrderHistoryBinding binding;

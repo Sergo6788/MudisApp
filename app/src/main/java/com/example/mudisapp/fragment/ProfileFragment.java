@@ -18,11 +18,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.mudisapp.R;
-import com.example.mudisapp.activity.DrawerActivity;
 import com.example.mudisapp.app.App;
 import com.example.mudisapp.databinding.FragmentProfileBinding;
 import com.example.mudisapp.model.FireStoreUser;
-import com.example.mudisapp.shared.SharedManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -50,9 +48,6 @@ public class ProfileFragment extends Fragment {
     }
 
     private void applyClick(){
-        binding.ivAvatar.setOnClickListener(v -> {
-            takeImage();
-        });
         binding.myOrderHistoryLayout.setOnClickListener(v -> {
             findNavController(v).navigate(R.id.action_profileFragment_to_orderHistoryFragment);
         });
@@ -128,13 +123,6 @@ public class ProfileFragment extends Fragment {
                         currentName = newName;
                     }
                 });
-    }
-    private void takeImage(){
-
-    }
-
-    private void sendImageToImgBB(){
-
     }
 
 }

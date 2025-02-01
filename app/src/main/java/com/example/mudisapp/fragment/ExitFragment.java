@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mudisapp.R;
-import com.example.mudisapp.activity.DrawerActivity;
 import com.example.mudisapp.activity.MainActivity;
 import com.example.mudisapp.app.App;
 

@@ -1,10 +1,5 @@
 package com.example.mudisapp.fragment;
 
-import static androidx.navigation.Navigation.findNavController;
-
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,14 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 
 import com.example.mudisapp.R;
 import com.example.mudisapp.adapter.CartAdapter;
@@ -38,10 +30,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 
 public class CartFragment extends Fragment implements CartAdapter.OnClickListener {
@@ -112,8 +101,8 @@ public class CartFragment extends Fragment implements CartAdapter.OnClickListene
     }
     private AlertDialog createMaterialDialog(){
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(requireActivity())
-                .setTitle("Delete dish?")
-                .setMessage("Do u want to delete this dish from the cart?")
+                .setTitle(R.string.delete_dish)
+                .setMessage(R.string.do_you_want_to_delete_this_dish_from_the_cart)
                 .setPositiveButton("Yes", (d, which)->{
                     list.remove(currentDish);
                     App.sharedManager.saveToCart(currentDish, 0);

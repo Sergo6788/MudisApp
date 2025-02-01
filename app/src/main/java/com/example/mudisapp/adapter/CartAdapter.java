@@ -15,7 +15,6 @@ import com.example.mudisapp.model.MenuModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private ArrayList<MenuModel> list;

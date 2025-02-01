@@ -1,6 +1,5 @@
 package com.example.mudisapp.fragment;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.example.mudisapp.R;
-import com.example.mudisapp.activity.DrawerActivity;
 import com.example.mudisapp.app.App;
-import com.example.mudisapp.databinding.FragmentOrderHistoryBinding;
 import com.example.mudisapp.databinding.FragmentPaymentMethodsBinding;
 import com.example.mudisapp.enums.PaymentMethod;
-import com.example.mudisapp.shared.SharedManager;
 
 import java.util.Objects;
 

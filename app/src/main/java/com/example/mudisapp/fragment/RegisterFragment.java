@@ -1,9 +1,6 @@
 package com.example.mudisapp.fragment;
 
-import static androidx.appcompat.content.res.AppCompatResources.getDrawable;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,25 +13,11 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.mudisapp.R;
 import com.example.mudisapp.databinding.FragmentRegisterBinding;
-import com.example.mudisapp.model.FireStoreUser;
-import com.example.mudisapp.shared.SharedManager;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-
-import java.util.Map;
 
 
 public class RegisterFragment extends Fragment {
@@ -103,11 +86,11 @@ public class RegisterFragment extends Fragment {
     private void checkEnterData() {
 
         if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.getText()).matches()) {
-            Toast.makeText(requireContext(), "Email Incorrect", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), R.string.email_incorrect, Toast.LENGTH_SHORT).show();
         } else if (binding.etPassword.getText().toString().length() < 6 || binding.etPassword.getText().toString().contains(" ")) {
-            Toast.makeText(requireContext(), "Password length must be more than 6 symbols and without spaces", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), R.string.password_length_must_be_more_than_6_symbols_and_without_spaces, Toast.LENGTH_SHORT).show();
         } else if (!binding.etPassword.getText().toString().equals(binding.etPasswordRepeat.getText().toString()))
-            Toast.makeText(requireContext(), "Password must be the same", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), R.string.password_must_be_the_same, Toast.LENGTH_SHORT).show();
         else
             registerUser();
     }
@@ -124,7 +107,7 @@ public class RegisterFragment extends Fragment {
                         if (mAuth.getCurrentUser() != null) {
                             mAuth.getCurrentUser().sendEmailVerification();
                         }
-                        Toast.makeText(requireContext(), "Registration successful! Verification email sent", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), R.string.registration_successful_verification_email_sent, Toast.LENGTH_SHORT).show();
                         Navigation.findNavController(requireActivity(), R.id.nav_main_fragment).popBackStack();
                     } else {
                         binding.btSignUp.setEnabled(true);

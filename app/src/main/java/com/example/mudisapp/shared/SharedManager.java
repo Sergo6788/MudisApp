@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import com.example.mudisapp.enums.PaymentMethod;
 import com.example.mudisapp.model.MenuModel;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
